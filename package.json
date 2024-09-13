@@ -1,0 +1,13 @@
+{
+    "name": "carfeeling",
+    "version": "1.0.0",
+    "description": "A project for car feeling analysis",
+    "main": "index.js",
+    "scripts": {
+        "frontend": "cd frontend && npm run dev"
+    },
+    "author": "Marco",
+    "license": "ISC",
+    "dependencies": {},
+    "devDependencies": {}
+}
