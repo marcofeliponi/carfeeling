@@ -16,7 +16,7 @@
 
 <script>
 import { CarOutline, MenuOutline } from '@vicons/ionicons5'
- import { Icon } from '@vicons/utils'
+import { Icon } from '@vicons/utils'
 
 export default {
     name: 'NavBar',
@@ -42,25 +42,27 @@ export default {
     background-color: var(--primary-color);
     display: flex;
     align-items: center;
+    border-bottom: 2px solid var(--border-color);
 
     .app-logo {
-        width: 50%;
-        height: 50%;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
         display: flex;
-        justify-content: end;
+        justify-content: center;
+        align-items: center;
     }
 
     .hamburger-button {
-        width: 50%;
-        height: 50%;
+        margin-left: auto;
+        margin-right: 20px;
         display: flex;
-        justify-content: end;
-        margin-right: 10px;
+        justify-content: center;
+        align-items: center;
 
         .menu-icon {
             cursor: pointer;
         }
     }
-
 }
 </style>

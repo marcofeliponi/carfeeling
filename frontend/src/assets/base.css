@@ -37,6 +37,7 @@
 
   --primary-color: #7aa556;
   --text-color: #499a29;
+  --border-color: #408507;
 }
 
 @media (prefers-color-scheme: dark) {
