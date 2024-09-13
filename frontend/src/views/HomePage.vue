@@ -8,7 +8,7 @@
             <RoundCard text="Nossos resultados são gerados em uma análise através de Inteligência Artificial, com dados disponibilizados na Internet por especialistas e clientes reais." />        
         </div>
         <div class="arrow-button">
-            <Icon color="#7aa556" size="100">
+            <Icon style="cursor: pointer" color="#408507" size="100">
                 <ArrowDown/>
             </Icon>
         </div>
@@ -52,9 +52,18 @@ export default {
     }
 
     .arrow-button {
-        margin-top: 45px;
+        margin-top: 25px;
         display: flex;
         justify-content: center;
-    }
+        animation-name: floating;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+
+        @keyframes floating {
+            from { transform: translate(0,  0px); }
+            65%  { transform: translate(0, 30px); }
+            to   { transform: translate(0, -0px); }    
+        }    }
 }
 </style>
