@@ -1,15 +1,15 @@
 <template>
     <div class="home">
-        <div class="description">
-            <h1 style="color: var(--text-color); font-size: 50px;">Bem-vindo ao Car Feeling!</h1>
-            <h2 style="color: black">Tenha acesso à diversas avaliações de clientes reais sobre veículos de seu interesse.</h2>
+        <div>
+            <h1 class="title">Bem-vindo ao Car Feeling!</h1>
+            <h2 class="description">Clientes reais, avaliações reais.</h2>
         </div>
         <div class="round-card">
             <RoundCard text="Nossos resultados são gerados em uma análise através de Inteligência Artificial, com dados disponibilizados na Internet por especialistas e clientes reais." />        
         </div>
         <div class="arrow-button">
-            <Icon style="cursor: pointer" color="#408507" size="100">
-                <ArrowDown/>
+            <Icon style="cursor: pointer" color="black" size="100">
+                <CaretDownSharp/>
             </Icon>
         </div>
     </div>
@@ -18,7 +18,7 @@
 <script>
 
 import RoundCard from '../components/RoundCard.vue';
-import { ArrowDown } from '@vicons/ionicons5'
+import { CaretDownSharp } from '@vicons/ionicons5'
 import { Icon } from '@vicons/utils'
 
 export default {
@@ -26,7 +26,7 @@ export default {
 
     components: {
         RoundCard,
-        ArrowDown,
+        CaretDownSharp,
         Icon
     },
 
@@ -37,22 +37,30 @@ export default {
 
 <style scoped lang="scss">
 .home {
-    margin-top: 90px;
+    margin-top: 80px;
+    font-weight: bold;
+    text-align: center;
     
+    .title {
+        font-family: 'Montserrat', sans-serif;
+        color: black;
+         font-size: 50px;
+    }
+
     .description {
-        text-align: center;
-        font-family: 'Roboto', sans-serif;
-        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
+        color: var(--secondary-color);
+        font-size: 27px;
     }
     
     .round-card {
-        margin-top: 40px;
+        margin-top: 50px;
         display: flex;
         justify-content: center;
     }
 
     .arrow-button {
-        margin-top: 25px;
+        margin-top: 15px;
         display: flex;
         justify-content: center;
         animation-name: floating;

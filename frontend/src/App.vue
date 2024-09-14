@@ -17,8 +17,11 @@ import HomePage from './views/HomePage.vue'
 </template>
 
 <style scoped lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;400&family=Montserrat:ital,wght@0,800;1,800&display=swap');
+
 :global(body) {
-  background-color: white;
+  background-color: #F5F5F5;
 }
 
 .app-navbar {
