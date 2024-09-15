@@ -3,7 +3,7 @@
         <div>
             <h1 class="title">Bem-vindo ao Car Feeling!</h1>
             <h2 class="description">Simplificamos sua escolha automotiva.</h2>
-            <h4 class="subdescription">
+            <h4 class="sub-description">
                 Analisamos dados de especialistas e clientes reais<br> para oferecer resultados precisos com Inteligência Artificial.
             </h4>
         </div>
@@ -72,7 +72,7 @@ export default {
         font-size: 27px;
     }
 
-    .subdescription {
+    .sub-description {
         margin-top: 10px;
         font-family: 'Lato', sans-serif;
         color: var(--secondary-color);
@@ -80,9 +80,8 @@ export default {
     }
     
     .start-button {
-        margin-top: 35px;
+        margin-top: 80px;
         font-family: 'Montserrat', sans-serif;
-        z-index: 2;
     }
 
     .tire-footer {
@@ -91,7 +90,6 @@ export default {
         left: 50%;
         transform: translateX(-50%);
         height: 45%;
-        z-index: 1;
         pointer-events: none;
 
         .tire-img {
