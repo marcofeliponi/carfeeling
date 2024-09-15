@@ -1,35 +1,57 @@
 <template>
     <div class="navbar">
         <div class="app-logo">
-            <Icon color="white" size="48">
-                <CarOutline />
-            </Icon>
+            <img src="@/assets/logo.png" alt="app-logo">
         </div>
-        <div class="hamburger-button">
-            <Icon class="menu-icon" color="white" size="40" @click="openMenu">
-                <MenuOutline>
-                </MenuOutline>
-            </Icon>
+        <div class="buttons" v-for="(value, key) in pages" :key="key">
+            <NConfigProvider :themeOverrides="buttonThemes">
+                <n-button 
+                    :quaternary="page === key ? false : true" 
+                    @click="goTo(key)"
+                >
+                    {{ value }}
+                </n-button>
+            </NConfigProvider>
         </div>
     </div>
 </template>
 
 <script>
-import { CarOutline, MenuOutline } from '@vicons/ionicons5'
-import { Icon } from '@vicons/utils'
+
+import { NButton, NConfigProvider } from 'naive-ui';
 
 export default {
     name: 'NavBar',
 
     components: {
-        CarOutline,
-        Icon,
-        MenuOutline
+        NButton,
+        NConfigProvider,
+    },
+
+    data() {
+        return {
+            page: 'home',
+            pages: {
+                about: 'Saiba mais',
+                home: 'Início',
+                contact: 'Contato'
+            },
+            buttonThemes: {
+                common: {
+                    primaryColorHover: 'white',
+                    primaryColorPressed: 'white',
+                },
+                Button: {
+                    textColor: 'white',
+                }
+            }
+        }
     },
 
     methods: {
-        openMenu() {
-            console.log('menu opened')
+        goTo(page) {
+            console.log('goTo');
+            this.page = page;
         }
     }
 }
@@ -39,30 +61,27 @@ export default {
 .navbar {
     width: 100%;
     height: 100%;
-    background-color: var(--primary-color);
     display: flex;
     align-items: center;
-    border-bottom: 2px solid var(--border-color);
-
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    background: linear-gradient(180deg, #000000 0%, var(--primary-color) 100%);
+    
     .app-logo {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
         display: flex;
-        justify-content: center;
-        align-items: center;
+        margin-left: 50px;
+        left: 0;
+        height: 30px;
+        position: absolute;
     }
 
-    .hamburger-button {
-        margin-left: auto;
-        margin-right: 20px;
+    .buttons {
+        font-family: 'Montserrat', sans-serif;
         display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .menu-icon {
-            cursor: pointer;
-        }
+        justify-content: space-around;
+        width: 10%;
     }
 }
 </style>
