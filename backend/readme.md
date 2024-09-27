@@ -18,14 +18,6 @@ pip install -r requirements.txt
 
 flask --app services/service run
 
-# Rodar Firestore localmente:
+# Rodar Firestore Emulator localmente (dentro do .venv):
 
-Primeiro abra o Cloud CLI e rode o emulador:
-
-gcloud emulators firestore start
-
-Após, no venv python execute:
-
-gloud init
-
-gcloud auth application-default login
+firebase emulators:start
