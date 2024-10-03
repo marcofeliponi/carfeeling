@@ -4,7 +4,8 @@
     "description": "A project for car feeling analysis",
     "main": "index.js",
     "scripts": {
-        "frontend": "cd frontend && npm run dev"
+        "frontend": "cd frontend && npm run dev",
+        "db": "cd backend && firebase emulators:start"
     },
     "author": "Marco",
     "license": "ISC",
