@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
 
     data() {
@@ -22,7 +24,7 @@ export default {
         async getCars() {
             try {
                 this.loading = true;
-                this.cars = await fetch(`${import.meta.env.VITE_API_URL}/cars`);
+                this.cars = await axios.get(`${import.meta.env.VITE_API_URL}/cars`);
             } catch (error) {
                 console.error(error);
             } finally {
