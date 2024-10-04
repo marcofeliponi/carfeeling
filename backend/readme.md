@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 #  Pronto, o serviço já pode ser iniciado com o seguinte comando:
 
-flask --app services/service run
+flask --app .\run.py --debug run
 
 # Rodar Firestore Emulator localmente (dentro do .venv):
 
