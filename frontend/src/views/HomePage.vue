@@ -49,6 +49,10 @@ export default {
         start() {
             const tireImg = document.querySelector('.tire-img')
             tireImg.style.transform = 'rotate(360deg)'
+
+            setTimeout(() => {
+                this.$router.push('/car-consult')
+            }, 1500)
         }
     }
 };
