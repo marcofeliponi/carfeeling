@@ -1,18 +1,16 @@
 <script setup>
 
 import NavBar from './components/NavBar.vue'
-import HomePage from './views/HomePage.vue'
+import { RouterView } from 'vue-router'
 
 </script>
 
 <template>
   <div style="display: flex; justify-content: center;">
+    <RouterView />
     <div class="app-navbar">
       <NavBar />
     </div>
-    <div class="app-content">
-      <HomePage />
-    </div> 
   </div>
 </template>
 
@@ -31,12 +29,5 @@ import HomePage from './views/HomePage.vue'
   width: 100%;
   height: 75px;
   z-index: 100;
-}
-
-.app-content {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
 }
 </style>
