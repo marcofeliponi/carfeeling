@@ -3,6 +3,6 @@ from services import services
 
 bp = Blueprint('routes', __name__)
 
-@bp.route('/')
+@bp.route('/api/cars')
 def get_cars():
     return services.get_cars_service()
