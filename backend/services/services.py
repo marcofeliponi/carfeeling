@@ -11,9 +11,11 @@ def get_cars_service():
         if not cars:
             return {"error": "No cars found"}
         
-        return {
+        data = {
             "cars": [car.to_dict() for car in cars]
         }
+
+        return data
 
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
