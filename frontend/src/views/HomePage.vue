@@ -67,7 +67,7 @@ export default {
     .title {
         font-family: 'Montserrat', sans-serif;
         color: black;
-         font-size: 50px;
+        font-size: 50px;
     }
 
     .description {
