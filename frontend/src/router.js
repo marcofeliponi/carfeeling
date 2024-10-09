@@ -6,12 +6,12 @@ import CarConsult from './views/CarConsult.vue'
 const routes = [
   { 
     path: '/',
-    name: 'HomePage',
+    name: 'home',
     component: HomePage
   },
   {
     path: '/car-consult',
-    name: 'CarConsult',
+    name: 'carConsult',
     component: CarConsult
   },
 ]
