@@ -7,9 +7,11 @@ import { RouterView } from 'vue-router'
 
 <template>
   <div style="display: flex; justify-content: center;">
-    <RouterView />
     <div class="app-navbar">
       <NavBar />
+    </div>
+    <div class="app-content">
+      <RouterView />
     </div>
   </div>
 </template>
@@ -29,5 +31,10 @@ import { RouterView } from 'vue-router'
   width: 100%;
   height: 75px;
   z-index: 100;
+}
+
+.app-content {
+  width: 100%;
+  margin-top: 75px;
 }
 </style>
