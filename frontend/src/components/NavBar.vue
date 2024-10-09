@@ -5,10 +5,7 @@
         </div>
         <div class="buttons" v-for="(value, key) in pages" :key="key">
             <NConfigProvider :themeOverrides="buttonThemes">
-                <n-button 
-                    :quaternary="page === key ? false : true" 
-                    @click="goTo(key)"
-                >
+                <n-button :quaternary="actualPage === key ? false : true" @click="goTo(key)">
                     {{ value }}
                 </n-button>
             </NConfigProvider>
@@ -30,7 +27,6 @@ export default {
 
     data() {
         return {
-            page: 'home',
             pages: {
                 about: 'Saiba mais',
                 home: 'Início',
@@ -48,10 +44,20 @@ export default {
         }
     },
 
+    computed: {
+        actualPage() {
+            return this.$route.name;
+        }
+    },
+
     methods: {
         goTo(page) {
-            console.log('goTo');
-            this.page = page;
+            if (page === 'home') {
+                this.$router.push('/');
+                return;
+            }
+
+            this.$router.push(`/${page}`);
         }
     }
 }
@@ -68,7 +74,7 @@ export default {
     border-bottom-left-radius: 18px;
     border-bottom-right-radius: 18px;
     background: linear-gradient(180deg, #000000 0%, var(--primary-color) 100%);
-    
+
     .app-logo {
         display: flex;
         margin-left: 50px;
