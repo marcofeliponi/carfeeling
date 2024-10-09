@@ -6,39 +6,47 @@
         <div class="inputs">
             <div class="input-group">
                 <p>Marca*</p>
-                <NConfigProvider :themeOverrides="inputTheme">
+                <NConfigProvider :themeOverrides="theme">
                     <n-select v-model:value="selectedBrand" filterable placeholder="Selecione uma marca"
                         :options="brands" size="large" />
                 </NConfigProvider>
             </div>
             <div class="input-group">
                 <p>Modelo*</p>
-                <NConfigProvider :themeOverrides="inputTheme">
+                <NConfigProvider :themeOverrides="theme">
                     <n-select v-model:value="selectedModel" filterable :disabled="!selectedBrand"
                         placeholder="Selecione um modelo" :options="models" size="large" />
                 </NConfigProvider>
             </div>
             <div class="input-group">
                 <p>Ano</p>
-                <NConfigProvider :themeOverrides="inputTheme">
+                <NConfigProvider :themeOverrides="theme">
                     <n-select v-model:value="selectedYear" filterable :disabled="!selectedBrand || !selectedModel"
                         placeholder="Selecione o ano do modelo" :options="years" size="large" />
                 </NConfigProvider>
             </div>
+        </div>
+        <div class="confirm-button">
+            <NConfigProvider :themeOverrides="theme">
+                <n-button type="primary" size="large" :disabled="!selectedBrand || !selectedModel">
+                    Consultar
+                </n-button>
+            </NConfigProvider>
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
-import { NSelect, NConfigProvider } from 'naive-ui';
+import { NSelect, NConfigProvider, NButton } from 'naive-ui';
 
 export default {
     name: 'CarConsult',
 
     components: {
         NSelect,
-        NConfigProvider
+        NConfigProvider,
+        NButton
     },
 
     data() {
@@ -49,7 +57,7 @@ export default {
             selectedBrand: '',
             selectedModel: '',
             selectedYear: '',
-            inputTheme: {
+            theme: {
                 common: {
                     primaryColor: '#14213D',
                     primaryColorHover: '#14213D',
@@ -97,16 +105,16 @@ export default {
 
         years() {
             return this.models
-            .filter((car, index, self) => 
-                index === self.findIndex((t) => (
-                    t.year === car.year
-                ))
-            )
-            .sort((a, b) => a.year - b.year)
-            .map(car => ({
-                label: car.year,
-                value: car.year
-            }));
+                .filter((car, index, self) =>
+                    index === self.findIndex((t) => (
+                        t.year === car.year
+                    ))
+                )
+                .sort((a, b) => a.year - b.year)
+                .map(car => ({
+                    label: car.year,
+                    value: car.year
+                }));
         }
     },
 
@@ -144,7 +152,7 @@ export default {
 <style scoped lang="scss">
 .main {
     color: black;
-    margin-top: 100px;
+    margin-top: 130px;
 
     .title {
         margin-bottom: 40px;
@@ -168,6 +176,13 @@ export default {
                 margin-left: 2px;
             }
         }
+    }
+
+    .confirm-button {
+        font-family: 'Montserrat', sans-serif;
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
     }
 }
 </style>
