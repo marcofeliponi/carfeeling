@@ -5,7 +5,11 @@ from routes import routes
 
 app = Flask(__name__)
 
+print('entrou no run.py !!!!!!!!')
+
 env = os.environ.get('FLASK_ENV', 'development')
+
+print('!!!!!!!env ===>', env)
 
 if env != 'production':
     port = int(os.environ.get('PORT', 5000))
@@ -16,9 +20,7 @@ else:
 app.register_blueprint(routes.bp)
 CORS(app, origins=['http://localhost:5173'])
 
-@app.route('/')
-def hello_world():
-    return "Hello, World!"
+print('!!!!!port ===>', port)
 
 if __name__ == "__main__":
     app.run(debug=(env != 'production'), host="0.0.0.0", port=port)
