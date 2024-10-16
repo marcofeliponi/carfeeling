@@ -8,8 +8,6 @@ def get_cars_service():
     try:
         cars = db.collection("cars").get()
 
-        print('teste...')
-
         if not cars:
             return {"error": "No cars found"}
         
