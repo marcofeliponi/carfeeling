@@ -121,27 +121,21 @@ export default {
     methods: {
         async getBrands() {
             try {
-                this.loading = true;
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/brands`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL ?? process.env.VITE_API_URL}/brands`);
 
                 this.carBrands = response.data.brands;
             } catch (error) {
                 console.error(error);
-            } finally {
-                this.loading = false;
             }
         },
 
         async getCars() {
             try {
-                this.loading = true;
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/cars`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL ?? process.env.VITE_API_URL}/cars`);
 
                 this.cars = response.data.cars;
             } catch (error) {
                 console.error(error);
-            } finally {
-                this.loading = false;
             }
         }
     }
