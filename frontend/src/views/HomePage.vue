@@ -52,7 +52,7 @@ export default {
 
             setTimeout(() => {
                 this.$router.push('/car-consult')
-            }, 1500)
+            }, 1000)
         }
     }
 };
