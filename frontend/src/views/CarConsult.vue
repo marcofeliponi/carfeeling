@@ -130,7 +130,9 @@ export default {
 
         async getBrands() {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL ?? process.env.VUE_APP_API_URL}/brands`);
+                console.log('envs', { meta: import.meta.env.VITE_API_URL, process: process.env.VITE_API_URL });
+                
+                const response = await axios.get(`${import.meta.env.VITE_API_URL ?? process.env.VITE_API_URL}/brands`);
 
                 this.carBrands = response.data.brands;
             } catch (error) {
@@ -140,7 +142,7 @@ export default {
 
         async getCars() {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL ?? process.env.VUE_APP_API_URL}/cars`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL ?? process.env.VITE_API_URL}/cars`);
 
                 this.cars = response.data.cars;
             } catch (error) {

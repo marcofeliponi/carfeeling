@@ -1,0 +1,5 @@
+steps:
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'build']
+  env:
+  - 'VITE_API_URL=https://carfeeling-api-754776355560.southamerica-east1.run.app'
