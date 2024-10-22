@@ -11,7 +11,7 @@ if env != 'production':
     os.environ['FIRESTORE_EMULATOR_HOST'] = 'localhost:8080'
 
 app.register_blueprint(routes.bp)
-CORS(app, origins=['http://localhost:5173', 'https://carfeeling-33182721445.southamerica-east1.run.app/'])
+CORS(app, resources={r"/*": {"origins": ['http://localhost:5173', 'https://carfeeling-33182721445.southamerica-east1.run.app']}})
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
