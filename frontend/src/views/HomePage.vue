@@ -4,17 +4,13 @@
             <h1 class="title">Bem-vindo ao Car Feeling!</h1>
             <h2 class="description">Simplificamos sua escolha automotiva.</h2>
             <h4 class="sub-description">
-                Analisamos dados de especialistas e clientes reais<br> para oferecer resultados precisos com Inteligência Artificial.
+                Analisamos dados de especialistas e clientes reais<br> para oferecer resultados precisos com
+                Inteligência Artificial.
             </h4>
         </div>
         <div class="start-button">
-            <n-button
-                style="width: 300px; height: 50px;"
-                :loading="loading"
-                color="#14213D"
-                size="large"
-                @click="start" 
-            >
+            <n-button style="width: 300px; height: 50px;" :loading="loading" color="#14213D" size="large"
+                @click="start">
                 Começar
             </n-button>
         </div>
@@ -60,10 +56,10 @@ export default {
 
 <style scoped lang="scss">
 .home {
-    margin-top: 200px;
+    margin-top: 110px;
     font-weight: bold;
     text-align: center;
-    
+
     .title {
         font-family: 'Montserrat', sans-serif;
         color: black;
@@ -82,7 +78,7 @@ export default {
         color: var(--secondary-color);
         font-size: 22px;
     }
-    
+
     .start-button {
         margin-top: 80px;
         font-family: 'Montserrat', sans-serif;
