@@ -14,3 +14,8 @@ def get_cars():
 @bp.route('/api/brands')
 def get_brands():
     return services.get_brands_service()
+
+# TODO: This route will be used to simulate the scraping process in real time.
+@bp.route('/api/scrape/<car>')
+def scrape_reviews(car):
+    return 'Scraping...'
