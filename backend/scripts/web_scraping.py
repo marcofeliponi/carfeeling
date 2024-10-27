@@ -45,6 +45,7 @@ async def run_scrape_process(query, num_results):
     return data
 
 async def process_car_reviews(car):
+    print(f'Scraping {car}')
     cleaned_reviews = []
     relevant_reviews = {'scraped_sites': [], 'positives': [], 'negatives': []}
     extra_relevant_reviews = {'scraped_sites': [], 'positives': [], 'negatives': []}
@@ -66,7 +67,7 @@ async def process_car_reviews(car):
         relevant_reviews['negatives'].extend(extra_relevant_reviews['negatives'])
     
     if (len(relevant_reviews['positives']) > 0 or len(relevant_reviews['negatives']) > 0):
-        await save_car_analysis(car, relevant_reviews)
+        save_car_analysis(car, relevant_reviews)
     
     
 async def run():
