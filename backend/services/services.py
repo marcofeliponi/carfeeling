@@ -34,3 +34,15 @@ def get_brands_service():
 
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
+    
+def save_car_analysis(car, analysis):
+    try:
+        db.collection("car_analysis").add({
+            "car": car,
+            **analysis
+        })
+        
+        return {"message": f"Analysis saved successfully for {car}"}
+    except Exception as e:
+        return {"error": f"An error occurred: {str(e)}"}
+    

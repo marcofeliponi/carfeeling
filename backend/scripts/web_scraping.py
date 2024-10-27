@@ -1,29 +1,79 @@
-from analyzer.relevance_classifier import process_texts, classify_relevance
-from googlesearch import search
-import requests
+import aiohttp
+import asyncio
 from bs4 import BeautifulSoup
-import json
+from .analyzer.relevance_classifier import process_texts, classify_relevance
+from googlesearch import search
+from services.services import get_cars_service, save_car_analysis
 
-# TODO: Implement dynamic query (car options has to come from DB, or a JSON file)
-query = 'onix bom site reviews'
-sites = search(query, num_results=1)
+favorites_sites_to_scrape = [
+        'https://quatrorodas.abril.com.br',
+        'https://www.icarros.com.br',
+        'https://flatout.com.br',
+        'https://www.carrosnaweb.com.br',
+        'https://autoentusiastas.com.br'
+        'https://motor1.uol.com.br',
+    ]
 
-def scrape_site(url):
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
+async def scrape_site(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            encoding = response.charset or 'utf-8'
+            text = await response.read()
+            text = text.decode(encoding, errors='replace')
+            soup = BeautifulSoup(text, 'html.parser')
 
-    reviews = soup.find_all(['p', 'div'], class_=lambda x: x and 'review' in x.lower())
-    if not reviews:
-        reviews = soup.find_all('p')
+            reviews = soup.find_all(['p', 'div'], class_=lambda x: x and 'review' in x.lower())
+            if not reviews:
+                reviews = soup.find_all('p')
+            
+            return [review.get_text() for review in reviews]
+
+async def run_scrape_process(query, num_results):
+    sites = search(query, num_results=num_results)
+
+    data = []
+    for site in sites:
+        reviews = await scrape_site(site)
+
+        if (len(reviews) == 0):
+            print(f'No reviews found for {query} on {site}')
+            continue
+
+        cleaned_reviews = process_texts(reviews)
+        data.append({'cleaned_reviews': cleaned_reviews, 'site': site})
+        
+    return data
+
+async def process_car_reviews(car):
+    cleaned_reviews = []
+    relevant_reviews = {'scraped_sites': [], 'positives': [], 'negatives': []}
+    extra_relevant_reviews = {'scraped_sites': [], 'positives': [], 'negatives': []}
     
-    return [review.get_text() for review in reviews]
-
-for site in sites:
-    reviews = scrape_site(site)
-    cleaned_reviews = process_texts(reviews)
-    
+    for site in favorites_sites_to_scrape:
+        query = f'{car} avaliação site:{site}'
+        cleaned_reviews = await run_scrape_process(query, 1)
+        
     relevant_reviews = classify_relevance(cleaned_reviews)
 
-    with open('data.json', 'w', encoding='utf-8') as f:
-        json.dump(relevant_reviews, f, ensure_ascii=False, indent=4)
+    not_enough_reviews_from_main_sites = (len(relevant_reviews['positives']) + len(relevant_reviews['negatives'])) < 5
+    if (not_enough_reviews_from_main_sites):
+        query = f'{car} avaliação -site:{" -site:".join(favorites_sites_to_scrape)}'
+        cleaned_reviews = await run_scrape_process(query, 3)
 
+        extra_relevant_reviews = classify_relevance(cleaned_reviews)
+        relevant_reviews['scraped_sites'].extend(extra_relevant_reviews['scraped_sites'])
+        relevant_reviews['positives'].extend(extra_relevant_reviews['positives'])
+        relevant_reviews['negatives'].extend(extra_relevant_reviews['negatives'])
+    
+    if (len(relevant_reviews['positives']) > 0 or len(relevant_reviews['negatives']) > 0):
+        await save_car_analysis(car, relevant_reviews)
+    
+    
+async def run():
+    models = get_cars_service()['cars']
+
+    for model in models:
+        car = model['model']
+        await process_car_reviews(car)
+
+asyncio.run(run())

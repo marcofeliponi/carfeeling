@@ -35,16 +35,19 @@ def process_texts(texts):
 
 relevance_classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
 
-def classify_relevance(texts):
-    relevance_scores = {'positives': [], 'negatives': []}
+def classify_relevance(scrap_result):
+    relevance_scores = {'scraped_sites': [], 'positives': [], 'negatives': []}
     
-    for text in texts:
-        result = relevance_classifier(text, candidate_labels)
-        if result['labels'][0] == 'relevant' and result['scores'][0] > 0.8:
-            if any(kw in text for kw in positive_keywords):
-                relevance_scores['positives'].append(text)
-            elif any(kw in text for kw in negative_keywords):
-                relevance_scores['negatives'].append(text)
+    for data in scrap_result:
+        for text in data['cleaned_reviews']:
+            result = relevance_classifier(text, candidate_labels)
+            if result['labels'][0] == 'relevant' and result['scores'][0] > 0.8:
+                if data['site'] not in relevance_scores['scraped_sites']:
+                    relevance_scores['scraped_sites'].append(data['site'])
+                if any(kw in text for kw in positive_keywords):
+                    relevance_scores['positives'].append(text)
+                elif any(kw in text for kw in negative_keywords):
+                    relevance_scores['negatives'].append(text)
     
     relevance_scores['positives'] = relevance_scores['positives'][:10]
     relevance_scores['negatives'] = relevance_scores['negatives'][:10]

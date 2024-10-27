@@ -8,3 +8,5 @@ torch
 firebase-admin
 gunicorn==22.0.0
 Werkzeug==3.0.3
+aiohttp
+asyncio
