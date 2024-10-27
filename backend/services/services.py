@@ -37,8 +37,13 @@ def get_brands_service():
     
 def save_car_analysis(car, analysis):
     try:
+        car_analysis = db.collection("car_analysis").where("car", "==", car).get()
+        for doc in car_analysis:
+            doc.reference.delete()
+            
         db.collection("car_analysis").add({
             "car": car,
+            "created_at": firestore.SERVER_TIMESTAMP,
             **analysis
         })
         
