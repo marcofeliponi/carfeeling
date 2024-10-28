@@ -36,14 +36,14 @@
             </div>
         </div>
         <div v-else>
-            <!-- TODO -->
+            <n-spin style="display: flex;" size="large" />
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
-import { NSelect, NConfigProvider, NButton } from 'naive-ui';
+import { NSelect, NConfigProvider, NButton, NSpin } from 'naive-ui';
 
 export default {
     name: 'CarConsult',
@@ -51,7 +51,8 @@ export default {
     components: {
         NSelect,
         NConfigProvider,
-        NButton
+        NButton,
+        NSpin
     },
 
     data() {
@@ -72,9 +73,13 @@ export default {
         }
     },
 
-    mounted() {
-        this.getBrands();
-        this.getCars();
+    async mounted() {
+        this.loading = true;
+
+        await this.getBrands();
+        await this.getCars();
+
+        this.loading = false;
     },
 
     computed: {
