@@ -35,7 +35,7 @@ def get_brands_service():
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
     
-def save_car_analysis(car, analysis):
+def save_car_analysis(car, analysis, score):
     try:
         car_analysis = db.collection("car_analysis").where("car", "==", car).get()
         for doc in car_analysis:
@@ -43,6 +43,7 @@ def save_car_analysis(car, analysis):
             
         db.collection("car_analysis").add({
             "car": car,
+            "score": score,
             "created_at": firestore.SERVER_TIMESTAMP,
             **analysis
         })
@@ -63,7 +64,7 @@ def get_car_analysis_service(car, query_params):
 
         if not car_analysis:
             return {"error": f"No analysis found for {car}"}
-        
+
         data = {
             "analysis": [analysis.to_dict() for analysis in car_analysis]
         }
