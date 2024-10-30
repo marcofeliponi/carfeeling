@@ -44,6 +44,21 @@ async def run_scrape_process(query, num_results):
         
     return data
 
+def calculate_score(data):
+    positive_weight = 1
+    negative_weight = -1
+    
+    num_positives = len(data['positives'])
+    num_negatives = len(data['negatives'])
+    
+    score = (num_positives * positive_weight) + (num_negatives * negative_weight)
+
+    min_score, max_score = -10, 10
+    normalized_score = 1 + ((score - min_score) / (max_score - min_score)) * 4
+    normalized_score = round(max(1, min(normalized_score, 5)), 2)
+
+    return normalized_score
+
 async def process_car_reviews(car):
     print(f'Scraping {car}')
     cleaned_reviews = []
@@ -67,8 +82,8 @@ async def process_car_reviews(car):
         relevant_reviews['negatives'].extend(extra_relevant_reviews['negatives'])
     
     if (len(relevant_reviews['positives']) > 0 or len(relevant_reviews['negatives']) > 0):
-        save_car_analysis(car, relevant_reviews)
-    
+        score = calculate_score(relevant_reviews)
+        save_car_analysis(car, relevant_reviews, score)
     
 async def run():
     models = get_cars_service()['cars']
