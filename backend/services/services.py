@@ -51,3 +51,23 @@ def save_car_analysis(car, analysis):
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
     
+def get_car_analysis_service(car, query_params):
+    try:
+        car_analysis = []
+
+        if query_params.get("year"):
+            car_analysis = db.collection("car_analysis").where("car", "==", car).where("year", "==", query_params.get("year")).get()
+
+        if not car_analysis:
+            car_analysis = db.collection("car_analysis").where("car", "==", car).get()
+
+        if not car_analysis:
+            return {"error": f"No analysis found for {car}"}
+        
+        data = {
+            "analysis": [analysis.to_dict() for analysis in car_analysis]
+        }
+        
+        return data
+    except Exception as e:
+        return {"error": f"An error occurred: {str(e)}"}
