@@ -84,8 +84,8 @@ export default {
 
     computed: {
         brands() {
-            const brands = this.carBrands.map(car => {
-                const upperCaseName = car.name.toUpperCase();
+            const brands = this.carBrands.map(brand => {
+                const upperCaseName = brand.name.toUpperCase();
 
                 return {
                     label: upperCaseName,
@@ -101,7 +101,7 @@ export default {
                 car => car.brand.toUpperCase() === this.selectedBrand
             )
                 .map(car => {
-                    const upperCaseModel = car.model.toUpperCase();
+                    const upperCaseModel = car.model;
 
                     return {
                         label: upperCaseModel,
@@ -130,7 +130,14 @@ export default {
 
     methods: {
         consult() {
-            this.loading = true;
+            this.$router.push({
+                path: '/car-analysis',
+                query: {
+                    brand: this.selectedBrand,
+                    model: this.selectedModel,
+                    year: this.selectedYear
+                }
+            });
         },
 
         async getBrands() {
