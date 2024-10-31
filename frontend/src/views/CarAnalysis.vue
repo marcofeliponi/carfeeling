@@ -16,12 +16,12 @@
                     <span v-if="score === 'VERY_GOOD'">😍</span>
                     <span v-if="score === 'NO_SCORE'">🤔</span>
                 </div>
-                <div class="score">
+                <div v-if="score !== 'NO_SCORE'" class="score">
                     <p>Nota Geral:</p>
                     <p>{{ analysis.score }} / 5</p>
                 </div>
             </div>
-            <div class="title" style="margin-top: 50px;">
+            <div v-if="score !== 'NO_SCORE'" class="title" style="margin-top: 50px;">
                 <h3>O que as pessoas estão falando sobre {{ model }}:</h3>
             </div>
             <div class="reviews-container">
