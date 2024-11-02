@@ -39,7 +39,8 @@
             </NConfigProvider>
         </div>
         <Modal v-if="isModalOpen" :title="`Análise completa do ${model}`" @close-modal="isModalOpen = false"
-            :positiveReviews="analysis.positives" :negativeReviews="analysis.negatives" :scrapedSites="analysis.scraped_sites" :car-price="price"/>
+            :positiveReviews="analysis.positives" :negativeReviews="analysis.negatives"
+            :scrapedSites="analysis.scraped_sites" :fipe-data="fipeData" />
     </div>
 </template>
 
@@ -47,6 +48,7 @@
 import axios from 'axios';
 import { NButton, NConfigProvider } from 'naive-ui';
 import Modal from '../components/Modal.vue';
+import { getFipeFromParallelum } from '../services/ParallelumFIPE_API';
 
 export default {
     name: 'CarAnalysis',
@@ -81,7 +83,10 @@ export default {
     },
 
     async mounted() {
+        this.loading = true;
         await this.getCarAnalysis();
+        await this.getCarFipe();
+        this.loading = false;
     },
 
     computed: {
@@ -161,6 +166,21 @@ export default {
     },
 
     methods: {
+        async getCarFipe() {
+            const parallelumCarFipe = await getFipeFromParallelum(this.brand, this.model, this.year, this.formattedCarPrice(this.price));
+
+            this.fipeData = parallelumCarFipe;
+        },
+
+        formattedCarPrice(carPrice) {
+            const price = Number(carPrice).toLocaleString('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+            return `R$ ${price}`;
+        },
+
         openAnalysisModal() {
             this.isModalOpen = true;
         },
@@ -168,14 +188,10 @@ export default {
         async getCarAnalysis() {
             const queryParams = this.year ? `?year=${this.year}` : '';
 
-            this.loading = true;
             const response = await axios.get(`${import.meta.env.VITE_API_URL}/analysis/${this.model}${queryParams}`)
                 .catch(error => {
                     console.log(error)
                 })
-                .finally(() => {
-                    this.loading = false;
-                });
 
             this.analysis = response.data?.analysis?.[0] || {};
         }

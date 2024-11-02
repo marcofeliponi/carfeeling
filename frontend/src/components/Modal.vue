@@ -9,8 +9,9 @@
             </div>
             <div class="content">
                 <div class="car-fipe">
-                    <h3 class="fipe-title">Valor médio FIPE em 2024:</h3>
-                    <p class="fipe-value">{{ formattedCarPrice }}</p>
+                    <h3 class="fipe-title">{{fipeTitle}}</h3>
+                    <p class="fipe-value">{{ fipeData.price }}</p>
+                    <p v-if="fipeData.warning" class="fipe-warning">{{ fipeData.warning }}</p>
                 </div>
                 <div class="reviews">
                     <ul>
@@ -85,20 +86,15 @@ export default {
             type: Array,
             required: true
         },
-        carPrice: {
-            type: String,
+        fipeData: {
+            type: Object,
             required: true
         }
     },
 
     computed: {
-        formattedCarPrice() {
-            const price = Number(this.carPrice).toLocaleString('pt-BR', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-
-            return `R$ ${price}`;
+        fipeTitle() {
+            return this.fipeData?.date ? `Valor FIPE em ${this.fipeData.date}` : 'Valor FIPE';
         }
     },
 
@@ -178,6 +174,14 @@ export default {
             .fipe-value {
                 font-size: 30px;
                 color: var(--secondary-color);
+            }
+
+            .fipe-warning {
+                margin-top: 10px;
+                font-size: 14px;
+                color: black;
+                max-width: 50%;
+                text-align: center;
             }
         }
 
