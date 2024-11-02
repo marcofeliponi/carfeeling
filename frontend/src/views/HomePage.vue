@@ -23,6 +23,7 @@
 <script>
 
 import { NButton } from 'naive-ui';
+import axios from 'axios';
 
 export default {
     name: 'HomePage',
@@ -42,13 +43,37 @@ export default {
     },
 
     methods: {
-        start() {
+        async getBrands() {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/brands`);
+
+                return response.data.brands;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
+        async getCars() {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/cars`);
+
+                return response.data.cars;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
+        async start() {
             const tireImg = document.querySelector('.tire-img')
             tireImg.style.transform = 'rotate(360deg)'
 
-            setTimeout(() => {
-                this.$router.push('/car-consult')
-            }, 1000)
+            const brands = await this.getBrands();
+            const cars = await this.getCars();
+
+            this.$store.setCars(cars);
+            this.$store.setBrands(brands);
+
+            this.$router.push('/car-consult')
         }
     }
 };

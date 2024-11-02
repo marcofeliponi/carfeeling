@@ -1,49 +1,43 @@
 <template>
     <div class="main">
-        <div v-if="!loading">
-            <div class="title">
-                <h1>Selecione um modelo e analisaremos para você!</h1>
-            </div>
-            <div class="inputs">
-                <div class="input-group">
-                    <p>Marca*</p>
-                    <NConfigProvider :themeOverrides="theme">
-                        <n-select v-model:value="selectedBrand" filterable placeholder="Selecione uma marca"
-                            :options="brands" size="large" />
-                    </NConfigProvider>
-                </div>
-                <div class="input-group">
-                    <p>Modelo*</p>
-                    <NConfigProvider :themeOverrides="theme">
-                        <n-select v-model:value="selectedModel" filterable :disabled="!selectedBrand"
-                            placeholder="Selecione um modelo" :options="models" size="large" />
-                    </NConfigProvider>
-                </div>
-                <div class="input-group">
-                    <p>Ano</p>
-                    <NConfigProvider :themeOverrides="theme">
-                        <n-select v-model:value="selectedYear" filterable :disabled="!selectedBrand || !selectedModel"
-                            placeholder="Selecione o ano do modelo" :options="years" size="large" />
-                    </NConfigProvider>
-                </div>
-            </div>
-            <div class="confirm-button">
+        <div class="title">
+            <h1>Selecione um modelo e analisaremos para você!</h1>
+        </div>
+        <div class="inputs">
+            <div class="input-group">
+                <p>Marca*</p>
                 <NConfigProvider :themeOverrides="theme">
-                    <n-button @click="consult" type="primary" size="large" :disabled="!selectedBrand || !selectedModel">
-                        Consultar
-                    </n-button>
+                    <n-select v-model:value="selectedBrand" filterable placeholder="Selecione uma marca"
+                        :options="brands" size="large" />
+                </NConfigProvider>
+            </div>
+            <div class="input-group">
+                <p>Modelo*</p>
+                <NConfigProvider :themeOverrides="theme">
+                    <n-select v-model:value="selectedModel" filterable :disabled="!selectedBrand"
+                        placeholder="Selecione um modelo" :options="models" size="large" />
+                </NConfigProvider>
+            </div>
+            <div class="input-group">
+                <p>Ano</p>
+                <NConfigProvider :themeOverrides="theme">
+                    <n-select v-model:value="selectedYear" filterable :disabled="!selectedBrand || !selectedModel"
+                        placeholder="Selecione o ano do modelo" :options="years" size="large" />
                 </NConfigProvider>
             </div>
         </div>
-        <div v-else>
-            <n-spin style="display: flex;" size="large" />
+        <div class="confirm-button">
+            <NConfigProvider :themeOverrides="theme">
+                <n-button @click="consult" type="primary" size="large" :disabled="!selectedBrand || !selectedModel">
+                    Consultar
+                </n-button>
+            </NConfigProvider>
         </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios';
-import { NSelect, NConfigProvider, NButton, NSpin } from 'naive-ui';
+import { NSelect, NConfigProvider, NButton } from 'naive-ui';
 
 export default {
     name: 'CarConsult',
@@ -52,12 +46,10 @@ export default {
         NSelect,
         NConfigProvider,
         NButton,
-        NSpin
     },
 
     data() {
         return {
-            loading: false,
             cars: [],
             carBrands: [],
             selectedBrand: '',
@@ -74,12 +66,8 @@ export default {
     },
 
     async mounted() {
-        this.loading = true;
-
-        await this.getBrands();
-        await this.getCars();
-
-        this.loading = false;
+        this.cars = this.$store.state.cars;
+        this.carBrands = this.$store.state.brands;
     },
 
     computed: {
@@ -141,26 +129,6 @@ export default {
                 }
             });
         },
-
-        async getBrands() {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/brands`);
-
-                this.carBrands = response.data.brands;
-            } catch (error) {
-                console.error(error);
-            }
-        },
-
-        async getCars() {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/cars`);
-
-                this.cars = response.data.cars;
-            } catch (error) {
-                console.error(error);
-            }
-        }
     }
 
 }
@@ -176,6 +144,7 @@ export default {
         display: flex;
         justify-content: center;
         font-family: 'Montserrat', sans-serif;
+        color: var(--primary-color)
     }
 
     .inputs {

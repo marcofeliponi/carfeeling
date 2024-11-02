@@ -38,6 +38,11 @@
                 <n-button type="primary" round @click="openAnalysisModal">Visualizar análise completa</n-button>
             </NConfigProvider>
         </div>
+        <div v-else class="no-data-footer">
+            <NConfigProvider :themeOverrides="buttonThemes">
+                <n-button type="primary" round @click="goBackToHome">Voltar para a página inicial</n-button>
+            </NConfigProvider>
+        </div>
         <Modal v-if="isModalOpen" :title="`Análise completa do ${model}`" @close-modal="isModalOpen = false"
             :positiveReviews="analysis.positives" :negativeReviews="analysis.negatives"
             :scrapedSites="analysis.scraped_sites" :fipe-data="fipeData" />
@@ -166,6 +171,10 @@ export default {
     },
 
     methods: {
+        goBackToHome() {
+            this.$router.push('/');
+        },
+
         async getCarFipe() {
             const parallelumCarFipe = await getFipeFromParallelum(this.brand, this.model, this.year, this.formattedCarPrice(this.price));
 
@@ -276,10 +285,15 @@ export default {
         }
     }
 
-    .footer {
+    .footer,
+    .no-data-footer {
         display: flex;
         justify-content: center;
         font-family: 'Montserrat', sans-serif;
+    }
+
+    .no-data-footer {
+        margin-top: 40px;
     }
 }
 </style>
