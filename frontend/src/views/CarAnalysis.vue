@@ -39,7 +39,7 @@
             </NConfigProvider>
         </div>
         <Modal v-if="isModalOpen" :title="`Análise completa do ${model}`" @close-modal="isModalOpen = false"
-            :positiveReviews="analysis.positives" :negativeReviews="analysis.negatives" :scrapedSites="analysis.scraped_sites"/>
+            :positiveReviews="analysis.positives" :negativeReviews="analysis.negatives" :scrapedSites="analysis.scraped_sites" :car-price="price"/>
     </div>
 </template>
 
@@ -64,6 +64,7 @@ export default {
             brand: this.$route.query.brand,
             model: this.$route.query.model,
             year: this.$route.query.year,
+            price: this.$route.query.price,
             analysis: {},
             buttonThemes: {
                 common: {

@@ -106,7 +106,8 @@ export default {
                     return {
                         label: upperCaseModel,
                         value: upperCaseModel,
-                        year: car.year
+                        year: car.year,
+                        price: car.price
                     }
                 });
 
@@ -135,7 +136,8 @@ export default {
                 query: {
                     brand: this.selectedBrand,
                     model: this.selectedModel,
-                    year: this.selectedYear
+                    year: this.selectedYear,
+                    price: this.models.find(car => car.value === this.selectedModel).price
                 }
             });
         },
