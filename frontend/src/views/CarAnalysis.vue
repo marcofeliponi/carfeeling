@@ -21,7 +21,7 @@
                     <p>{{ analysis.score }} / 5</p>
                 </div>
             </div>
-            <div v-if="score !== 'NO_SCORE'" class="title" style="margin-top: 50px;">
+            <div v-if="score !== 'NO_SCORE'" class="title" style="margin-top: 40px;">
                 <h3>O que as pessoas estão falando sobre {{ model }}:</h3>
             </div>
             <div class="reviews-container">
@@ -33,26 +33,49 @@
                 </div>
             </div>
         </div>
-        <!-- TODO: modal to see all scraped/analyzed data -->
+        <div v-if="score !== 'NO_SCORE'" class="footer">
+            <NConfigProvider :themeOverrides="buttonThemes">
+                <n-button type="primary" round @click="openAnalysisModal">Visualizar análise completa</n-button>
+            </NConfigProvider>
+        </div>
+        <Modal v-if="isModalOpen" :title="`Análise completa do ${model}`" @close-modal="isModalOpen = false"
+            :positiveReviews="analysis.positives" :negativeReviews="analysis.negatives" :scrapedSites="analysis.scraped_sites"/>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import { NButton, NConfigProvider } from 'naive-ui';
+import Modal from '../components/Modal.vue';
 
 export default {
     name: 'CarAnalysis',
 
     components: {
+        NButton,
+        NConfigProvider,
+        Modal
     },
 
     data() {
         return {
             loading: false,
+            isModalOpen: false,
             brand: this.$route.query.brand,
             model: this.$route.query.model,
             year: this.$route.query.year,
-            analysis: {}
+            analysis: {},
+            buttonThemes: {
+                common: {
+                    primaryColorPressed: 'var(--primary-color)',
+                    primaryColor: 'var(--primary-color)',
+                    primaryColorHover: 'var(--primary-color)',
+                },
+                Button: {
+                    textColor: 'white',
+
+                }
+            }
         }
     },
 
@@ -137,6 +160,10 @@ export default {
     },
 
     methods: {
+        openAnalysisModal() {
+            this.isModalOpen = true;
+        },
+
         async getCarAnalysis() {
             const queryParams = this.year ? `?year=${this.year}` : '';
 
@@ -158,7 +185,7 @@ export default {
 
 <style scoped lang="scss">
 .main {
-    margin-top: 60px;
+    margin-top: 40px;
     color: black;
 
     .title {
@@ -173,7 +200,7 @@ export default {
         align-items: center;
         justify-content: center;
         text-align: center;
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
     .emoji {
@@ -212,7 +239,7 @@ export default {
         display: flex;
         justify-content: center !important;
         text-align: center;
-        margin-top: 20px;
+        margin-top: 10px;
 
         .positive-review,
         .negative-review {
@@ -230,6 +257,12 @@ export default {
         .negative-review {
             color: red;
         }
+    }
+
+    .footer {
+        display: flex;
+        justify-content: center;
+        font-family: 'Montserrat', sans-serif;
     }
 }
 </style>
