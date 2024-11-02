@@ -1,46 +1,18 @@
 <template>
     <div class="navbar">
-        <div class="app-logo">
+        <div class="app-logo" @click="goToHome()">
             <img src="@/assets/logo.png" alt="app-logo">
-        </div>
-        <div class="buttons" v-for="(value, key) in pages" :key="key">
-            <NConfigProvider :themeOverrides="buttonThemes">
-                <n-button :quaternary="actualPage === key ? false : true" @click="goTo(key)">
-                    {{ value }}
-                </n-button>
-            </NConfigProvider>
         </div>
     </div>
 </template>
 
 <script>
 
-import { NButton, NConfigProvider } from 'naive-ui';
-
 export default {
     name: 'NavBar',
 
-    components: {
-        NButton,
-        NConfigProvider,
-    },
-
     data() {
         return {
-            pages: {
-                about: 'Saiba mais',
-                home: 'Início',
-                contact: 'Contato'
-            },
-            buttonThemes: {
-                common: {
-                    primaryColorHover: 'white',
-                    primaryColorPressed: 'white',
-                },
-                Button: {
-                    textColor: 'white',
-                }
-            }
         }
     },
 
@@ -51,13 +23,8 @@ export default {
     },
 
     methods: {
-        goTo(page) {
-            if (page === 'home') {
-                this.$router.push('/');
-                return;
-            }
-
-            this.$router.push(`/${page}`);
+        goToHome() {
+            this.$router.push('/');
         }
     }
 }
@@ -77,17 +44,8 @@ export default {
 
     .app-logo {
         display: flex;
-        margin-left: 50px;
-        left: 0;
         height: 30px;
-        position: absolute;
-    }
-
-    .buttons {
-        font-family: 'Montserrat', sans-serif;
-        display: flex;
-        justify-content: space-around;
-        width: 10%;
+        cursor: pointer;
     }
 }
 </style>
