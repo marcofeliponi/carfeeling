@@ -5,6 +5,6 @@ sentiment_pipeline = pipeline(
     model="nlptown/bert-base-multilingual-uncased-sentiment"
 )
 
-def sentiment_analysis(texts):
-    results = sentiment_pipeline(texts)
+def sentiment_analysis(text):
+    results = sentiment_pipeline(text)
     return results
