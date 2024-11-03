@@ -1,7 +1,10 @@
 <template>
     <div class="main">
         <div v-if="loading">
-            <!-- TODO: add car loading animation -->
+            <h3 class="loading-message">Aguarde, estamos em alta velocidade para trazer seu resultado!</h3>
+            <div class="loading-icon">
+                <span>🏎️💨</span>
+            </div>
         </div>
         <div v-else>
             <div class="title">
@@ -18,10 +21,10 @@
                 </div>
                 <div v-if="score !== 'NO_SCORE'" class="score">
                     <p>Nota Geral:</p>
-                    <p>{{ analysis.score }} / 5</p>
+                    <p :style="scoreColor">{{ analysis.score }} / 5</p>
                 </div>
             </div>
-            <div v-if="score !== 'NO_SCORE'" class="title" style="margin-top: 40px;">
+            <div v-if="score !== 'NO_SCORE'" class="title" style="margin-top: 40px; font-size: 18px">
                 <h3>O que as pessoas estão falando sobre {{ model }}:</h3>
             </div>
             <div class="reviews-container">
@@ -32,20 +35,20 @@
                     <p>{{ review }}</p>
                 </div>
             </div>
+            <div v-if="score !== 'NO_SCORE'" class="footer">
+                <NConfigProvider :themeOverrides="buttonThemes">
+                    <n-button type="primary" round @click="openAnalysisModal">Visualizar análise completa</n-button>
+                </NConfigProvider>
+            </div>
+            <div v-else class="no-data-footer">
+                <NConfigProvider :themeOverrides="buttonThemes">
+                    <n-button type="primary" round @click="goBackToHome">Voltar para a página inicial</n-button>
+                </NConfigProvider>
+            </div>
+            <Modal v-if="isModalOpen" :title="`Análise completa do ${model}`" @close-modal="isModalOpen = false"
+                :positiveReviews="analysis.positives" :negativeReviews="analysis.negatives"
+                :scrapedSites="analysis.scraped_sites" :fipe-data="fipeData" />
         </div>
-        <div v-if="score !== 'NO_SCORE'" class="footer">
-            <NConfigProvider :themeOverrides="buttonThemes">
-                <n-button type="primary" round @click="openAnalysisModal">Visualizar análise completa</n-button>
-            </NConfigProvider>
-        </div>
-        <div v-else class="no-data-footer">
-            <NConfigProvider :themeOverrides="buttonThemes">
-                <n-button type="primary" round @click="goBackToHome">Voltar para a página inicial</n-button>
-            </NConfigProvider>
-        </div>
-        <Modal v-if="isModalOpen" :title="`Análise completa do ${model}`" @close-modal="isModalOpen = false"
-            :positiveReviews="analysis.positives" :negativeReviews="analysis.negatives"
-            :scrapedSites="analysis.scraped_sites" :fipe-data="fipeData" />
     </div>
 </template>
 
@@ -61,7 +64,7 @@ export default {
     components: {
         NButton,
         NConfigProvider,
-        Modal
+        Modal,
     },
 
     data() {
@@ -95,6 +98,26 @@ export default {
     },
 
     computed: {
+        scoreColor() {
+            if (this.score === 'VERY_BAD') {
+                return 'color: red;';
+            }
+            if (this.score === 'BAD') {
+                return 'color: orange;';
+            }
+            if (this.score === 'REGULAR') {
+                return 'color: orange;';
+            }
+            if (this.score === 'GOOD') {
+                return 'color: green;';
+            }
+            if (this.score === 'VERY_GOOD') {
+                return 'color: green;';
+            }
+
+            return 'color: black;';
+        },
+
         previewReviews() {
             if (this.score === 'VERY_BAD') {
                 return {
@@ -220,6 +243,43 @@ export default {
         font-family: 'Montserrat', sans-serif;
     }
 
+    .loading-message {
+        display: flex;
+        justify-content: center;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 34px;
+        margin-top: 110px;
+        color: var(--secondary-color)
+    }
+
+    .loading-icon {
+        display: flex;
+        justify-content: center;
+        font-size: 140px;
+        margin-top: 50px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: cruising 3s linear infinite;
+    }
+
+    @keyframes cruising {
+        0% {
+            transform: translateX(-50%);
+            opacity: 1;
+        }
+
+        50% {
+            transform: translateX(-60%);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateX(-50%);
+            opacity: 1;
+        }
+    }
+
     .score-container {
         display: flex;
         flex-direction: column;
@@ -257,7 +317,7 @@ export default {
 
     .score p {
         font-size: 28px;
-        font-family: 'Lato', sans-serif;
+        font-family: 'Montserrat', sans-serif;
         color: var(--primary-color);
     }
 
@@ -269,11 +329,10 @@ export default {
 
         .positive-review,
         .negative-review {
-            padding: 40px;
-            width: 600px;
-            margin: 10px;
+            padding: 30px;
+            width: 80%;
             font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .positive-review {

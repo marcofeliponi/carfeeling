@@ -4,8 +4,7 @@
             <h1 class="title">Bem-vindo ao Car Feeling!</h1>
             <h2 class="description">Simplificamos sua escolha automotiva.</h2>
             <h4 class="sub-description">
-                Analisamos dados de especialistas e clientes reais<br> para oferecer resultados precisos com
-                Inteligência Artificial.
+                Utilizamos Inteligência Artificial e Web Scraping para analisar dados da internet, coletando opiniões de especialistas e consumidores sobre carros nacionais e oferecendo insights que ajudam na sua decisão.
             </h4>
         </div>
         <div class="start-button">
