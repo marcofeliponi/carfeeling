@@ -20,9 +20,9 @@
                             <NIcon style="margin-right: 20px" size="14">
                                 <Person />
                             </NIcon>
-                            {{ review }}
+                            {{ formatReview(review) }}
                         </li>
-                        <span v-if="!positiveReviews.length">Sem comentários positivos mantidos pela Inteligência
+                        <span v-if="!positiveReviews.length" class="no-review">Sem comentários positivos mantidos pela Inteligência
                             Artificial.</span>
                     </ul>
                     <ul>
@@ -31,9 +31,20 @@
                             <NIcon style="margin-right: 20px" size="14">
                                 <Person />
                             </NIcon>
-                            {{ review }}
+                            {{ formatReview(review) }}
                         </li>
-                        <span v-if="!negativeReviews.length">Sem comentários negativos mantidos pela Inteligência
+                        <span v-if="!negativeReviews.length" class="no-review">Sem comentários negativos mantidos pela Inteligência
+                            Artificial.</span>
+                    </ul>
+                    <ul>
+                        <h3 class="neutral-reviews-title">Comentários neutros:</h3>
+                        <li v-for="review in neutralReviews" :key="review" class="review-item">
+                            <NIcon style="margin-right: 20px" size="14">
+                                <Person />
+                            </NIcon>
+                            {{ formatReview(review) }}
+                        </li>
+                        <span v-if="!neutralReviews.length" class="no-review">Sem comentários neutros mantidos pela Inteligência
                             Artificial.</span>
                     </ul>
                 </div>
@@ -76,19 +87,28 @@ export default {
         },
         positiveReviews: {
             type: Array,
-            required: true
+            required: true,
+            default: () => []
         },
         negativeReviews: {
             type: Array,
-            required: true
+            required: true,
+            default: () => []
+        },
+        neutralReviews: {
+            type: Array,
+            required: true,
+            default: () => []
         },
         scrapedSites: {
             type: Array,
-            required: true
+            required: true,
+            default: () => []
         },
         fipeData: {
             type: Object,
-            required: true
+            required: true,
+            default: () => ({})
         }
     },
 
@@ -101,6 +121,28 @@ export default {
     methods: {
         closeModal() {
             this.$emit('close-modal');
+        },
+
+        formatReview(review) {
+            const toRemove = ['Pontos positivos:', 'Pontos negativos:', 'Comentários:'];
+
+            toRemove.forEach(word => {
+                review = review.replace(word, ' ').trim();
+            });
+
+            if (
+                (review.startsWith('"') && review.endsWith('"')) ||
+                (review.startsWith("“") && review.endsWith("”")) ||
+                (review.startsWith("'") && review.endsWith("'"))
+            ) {
+                review = review.slice(1, -1);
+            }
+
+            if (review[0] !== review[0].toUpperCase()) {
+                review = review[0].toUpperCase() + review.slice(1);
+            }
+
+            return `"${review}"`;
         },
     }
 }
@@ -192,6 +234,12 @@ export default {
             align-items: center;
             margin-top: 20px;
 
+            .no-review {
+                display: flex;
+                justify-content: center;
+                color: black;
+            }
+
             ul {
                 list-style-type: none;
                 padding: 0;
@@ -199,7 +247,8 @@ export default {
                 width: 70%;
 
                 .positive-reviews-title,
-                .negative-reviews-title {
+                .negative-reviews-title,
+                .neutral-reviews-title {
                     font-family: 'Montserrat', sans-serif;
                     font-size: 20px;
                     color: var(--primary-color);
@@ -225,6 +274,11 @@ export default {
 
                 .negative-reviews-title {
                     color: red;
+                    margin-top: 30px;
+                }
+
+                .neutral-reviews-title {
+                    color: #808080;
                     margin-top: 30px;
                 }
 

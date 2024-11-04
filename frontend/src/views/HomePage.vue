@@ -4,7 +4,8 @@
             <h1 class="title">Bem-vindo ao Car Feeling!</h1>
             <h2 class="description">Simplificamos sua escolha automotiva.</h2>
             <h4 class="sub-description">
-                Utilizamos Inteligência Artificial e Web Scraping para analisar dados da internet, coletando opiniões de especialistas e consumidores sobre carros nacionais e oferecendo insights que ajudam na sua decisão.
+                Utilizamos Inteligência Artificial e Web Scraping para analisar dados da internet, coletando opiniões de
+                especialistas e consumidores sobre carros nacionais e oferecendo insights que ajudam na sua decisão.
             </h4>
         </div>
         <div class="start-button">
@@ -64,7 +65,8 @@ export default {
 
         async start() {
             const tireImg = document.querySelector('.tire-img')
-            tireImg.style.transform = 'rotate(360deg)'
+
+            tireImg.classList.add('spinning');
 
             const brands = await this.getBrands();
             const cars = await this.getCars();
@@ -73,6 +75,8 @@ export default {
             this.$store.setBrands(brands);
 
             this.$router.push('/car-consult')
+
+            tireImg.classList.remove('spinning');
         }
     }
 };
@@ -117,8 +121,22 @@ export default {
         pointer-events: none;
 
         .tire-img {
-            transition: transform 2.0s ease-in-out;
+            transition: transform 1.0s ease-in-out;
             width: 1000px;
+        }
+
+        .spinning {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
     }
 }

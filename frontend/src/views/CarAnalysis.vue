@@ -29,10 +29,10 @@
             </div>
             <div class="reviews-container">
                 <div class="positive-review" v-for="review in previewReviews.positives" :key="review">
-                    <p>{{ review }}</p>
+                    <p>{{ formatReview(review) }}</p>
                 </div>
                 <div class="negative-review" v-for="review in previewReviews.negatives" :key="review">
-                    <p>{{ review }}</p>
+                    <p>{{ formatReview(review) }}</p>
                 </div>
             </div>
             <div v-if="score !== 'NO_SCORE'" class="footer">
@@ -46,7 +46,7 @@
                 </NConfigProvider>
             </div>
             <Modal v-if="isModalOpen" :title="`Análise completa do ${model}`" @close-modal="isModalOpen = false"
-                :positiveReviews="analysis.positives" :negativeReviews="analysis.negatives"
+                :positiveReviews="analysis.positives" :negativeReviews="analysis.negatives" :neutralReviews="analysis.neutral"
                 :scrapedSites="analysis.scraped_sites" :fipe-data="fipeData" />
         </div>
     </div>
@@ -194,6 +194,28 @@ export default {
     },
 
     methods: {
+        formatReview(review) {
+            const toRemove = ['Pontos positivos:', 'Pontos negativos:', 'Comentários:'];
+
+            toRemove.forEach(word => {
+                review = review.replace(word, ' ').trim();
+            });
+
+            if (
+                (review.startsWith('"') && review.endsWith('"')) ||
+                (review.startsWith("“") && review.endsWith("”")) ||
+                (review.startsWith("'") && review.endsWith("'"))
+            ) {
+                review = review.slice(1, -1);
+            }
+
+            if (review[0] !== review[0].toUpperCase()) {
+                review = review[0].toUpperCase() + review.slice(1);
+            }
+
+            return `"${review}"`;
+        },
+
         goBackToHome() {
             this.$router.push('/');
         },
