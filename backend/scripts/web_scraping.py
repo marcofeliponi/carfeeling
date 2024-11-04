@@ -43,11 +43,14 @@ async def scrape_site(url):
             
             return [review.get_text() for review in reviews]
 
-async def run_scrape_process(query, num_results):
+async def run_scrape_process(query, num_results, car_keyword):
     sites = search(query, num_results=num_results, lang='pt-br', sleep_interval=5.0, safe='on')
 
     data = []
     for site in sites:
+        if car_keyword.lower() not in site.lower():
+            continue
+
         sleep(10)
         reviews = await scrape_site(site)
 
@@ -75,14 +78,15 @@ def calculate_score(data):
 
     return normalized_score
 
-async def process_car_reviews(car):
-    print(f'Scraping {car}')
+async def process_car_reviews(car, year=None):
+    print(f'Scraping car = {car} year = {year}')
     cleaned_reviews = []
     relevant_reviews = {'scraped_sites': [], 'positives': [], 'negatives': [], 'neutral': []}
+    car_keyword = car.split()[0]
 
     for site in FAVORITES_SITES_TO_SCRAPE:
-        query = f'{car} avaliação site:{site}'
-        cleaned_reviews = await run_scrape_process(query, 1)
+        query = f"{car} {year if year else ''} avaliação site:{site}"
+        cleaned_reviews = await run_scrape_process(query, 1, car_keyword)
         
         if (len(cleaned_reviews) > 0):
             classified_data = classify_relevance(cleaned_reviews)
@@ -94,8 +98,8 @@ async def process_car_reviews(car):
 
     not_enough_reviews_from_main_sites = (len(relevant_reviews['positives']) + len(relevant_reviews['negatives'])) < 5
     if (not_enough_reviews_from_main_sites):
-        query = f'{car} vale a pena -site:{" -site:".join(FAVORITES_SITES_TO_SCRAPE)}'
-        cleaned_reviews = await run_scrape_process(query, 5)
+        query = f"{car} {year if year else ''} vale a pena -site:{' -site:'.join(FAVORITES_SITES_TO_SCRAPE)}"
+        cleaned_reviews = await run_scrape_process(query, 5, car_keyword)
 
         if (len(cleaned_reviews) > 0):
             classified_data = classify_relevance(cleaned_reviews)
@@ -107,21 +111,21 @@ async def process_car_reviews(car):
     
     if (len(relevant_reviews['positives']) > 0 or len(relevant_reviews['negatives']) > 0):
         score = calculate_score(relevant_reviews)
-        # save_car_analysis(car, relevant_reviews, score)
-        return {'car': car, 'score': score, **relevant_reviews}
+        save_car_analysis(car, relevant_reviews, score, year)
+        return {'car': car, 'score': score, 'year': year if year else 'not informed', **relevant_reviews}
     
 async def run(car=None, year=None):
     response_to_api_calls = []
 
     if car:
-        arguments = f'{car} {year}' if year else car
-        response_to_api_calls = await process_car_reviews(arguments)
+        response_to_api_calls = await process_car_reviews(car, year)
         return response_to_api_calls
 
     models = get_cars_service()['cars']
     for model in models:
         car = model['model']
-        data = await process_car_reviews(car)
+        year = model['year']
+        data = await process_car_reviews(car, year)
         response_to_api_calls.append(data)
 
     return response_to_api_calls

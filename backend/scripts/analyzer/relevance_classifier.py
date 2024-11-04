@@ -7,14 +7,15 @@ relevance_classifier = pipeline("zero-shot-classification", model="facebook/bart
 IRRELEVANT_PHRASES = [
     "encontre um veículo", "últimos artigos", 
     "sobre este artigo", "vale a pena ler também", "comente", 
-    "compre agora", "veja também", "artigo relacionado",
-    "veja mais", "leia também", "compre com desconto",
-    "assinar", "limite", "matérias restritas", "assinante",
-    "assinatura", "conteúdo exclusivo", "conteúdo restrito",
-    "financiamento", "financie", "financiamento de veículo",
-    "vendedor", 
+    "veja também", "artigo", "veja mais", "leia também", "compre com desconto",
+    "assinar", "limite", "matérias", "assinante",
+    "assinatura", "conteúdo exclusivo", "restrito",
+    "financiamento", "financie", "financiamento",
+    "vendedor", "clique", "assine", "cnpj", "cpf",
+    "reservados", "conteudo", "acesso", "cadastro",
+    "login", "?"
 ]
-CANDIDATE_LABELS = ['relevant', 'not relevant', 'irrelevant', 'subscription-only', 'not applicable']
+CANDIDATE_LABELS = ['relevant', 'not relevant']
 
 def clean_text(text):
     text = re.sub(r'<.*?>', '', text)
@@ -43,15 +44,17 @@ def classify_relevance(scrap_result):
     
     for data in scrap_result:
         for text in data['cleaned_reviews']:
-            relevance_result = relevance_classifier(text['cleaned_text'], CANDIDATE_LABELS)
+            relevance_result = relevance_classifier(text['cleaned_text'], candidate_labels=CANDIDATE_LABELS)
 
-            if relevance_result['scores'][0] > 0.8:
-                label = relevance_result['labels'][0]
+            is_relevant_score = relevance_result['scores'][0] 
 
-                if label in ['not relevant', 'irrelevant', 'subscription-only', 'not applicable']:
+            if is_relevant_score > 0.985:
+                relevant_label = relevance_result['labels'][0]
+
+                if relevant_label == 'not relevant':
                     continue
                 
-                if label == 'relevant':
+                if relevant_label == 'relevant':
                     if data['site'] not in relevance_scores['scraped_sites']:
                         relevance_scores['scraped_sites'].append(data['site'])
                 

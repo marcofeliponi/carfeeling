@@ -35,20 +35,29 @@ def get_brands_service():
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
     
-def save_car_analysis(car, analysis, score):
+def save_car_analysis(car, analysis, score, year):
     try:
-        car_analysis = db.collection("car_analysis").where("car", "==", car).get()
+        if year:
+            car_analysis = db.collection("car_analysis").where("carAndYear", "==", f"{car}_{year}").get()
+        else:
+            car_analysis = db.collection("car_analysis").where("car", "==", car).get()
+
         for doc in car_analysis:
             doc.reference.delete()
             
-        db.collection("car_analysis").add({
+        car_analysis_data = {
             "car": car,
             "score": score,
             "created_at": firestore.SERVER_TIMESTAMP,
             **analysis
-        })
+        }
+
+        if year:
+            car_analysis_data["carAndYear"] = f"{car}_{year}"
         
-        return {"message": f"Analysis saved successfully for {car}"}
+        db.collection("car_analysis").add(car_analysis_data)
+        
+        return {"message": f"Analysis saved successfully for {car} {year if year else ''}"}
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
     
