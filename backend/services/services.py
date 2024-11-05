@@ -46,7 +46,6 @@ def save_car_analysis(car, analysis, score, year):
             doc.reference.delete()
             
         car_analysis_data = {
-            "car": car,
             "score": score,
             "created_at": firestore.SERVER_TIMESTAMP,
             **analysis
@@ -54,6 +53,8 @@ def save_car_analysis(car, analysis, score, year):
 
         if year:
             car_analysis_data["carAndYear"] = f"{car}_{year}"
+        else:
+            car_analysis_data["car"] = car
         
         db.collection("car_analysis").add(car_analysis_data)
         
@@ -66,7 +67,8 @@ def get_car_analysis_service(car, query_params):
         car_analysis = []
 
         if query_params.get("year"):
-            car_analysis = db.collection("car_analysis").where("car", "==", car).where("year", "==", query_params.get("year")).get()
+            car_and_year = f'{car}_{query_params.get("year")}'
+            car_analysis = db.collection("car_analysis").where("carAndYear", "==", car_and_year).get()
 
         if not car_analysis:
             car_analysis = db.collection("car_analysis").where("car", "==", car).get()
