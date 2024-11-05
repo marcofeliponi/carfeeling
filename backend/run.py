@@ -5,11 +5,6 @@ from routes import routes
 
 app = Flask(__name__)
 
-env = os.environ.get('FLASK_ENV', 'development')
-
-if env != 'production':
-    os.environ['FIRESTORE_EMULATOR_HOST'] = 'localhost:8080'
-
 app.register_blueprint(routes.bp)
 CORS(app, resources={r"/*": {"origins": ['http://localhost:5173', 'https://carfeeling-33182721445.southamerica-east1.run.app']}})
 
