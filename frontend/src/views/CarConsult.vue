@@ -5,17 +5,18 @@
         </div>
         <div class="inputs">
             <div class="input-group">
+                <!-- TODO: ao trocar se eu tiver Modelo/Ano selecionado, e trocar a Marca/Modelo selecionados, os selects devem ser limpos -->
                 <p>Marca*</p>
                 <NConfigProvider :themeOverrides="theme">
                     <n-select v-model:value="selectedBrand" filterable placeholder="Selecione uma marca"
-                        :options="brands" size="large" />
+                        :options="brands" size="large" @click="validateInputs('brands')" />
                 </NConfigProvider>
             </div>
             <div class="input-group">
                 <p>Modelo*</p>
                 <NConfigProvider :themeOverrides="theme">
                     <n-select v-model:value="selectedModel" filterable :disabled="!selectedBrand"
-                        placeholder="Selecione um modelo" :options="models" size="large" />
+                        placeholder="Selecione um modelo" :options="models" size="large" @click="validateInputs('models')" />
                 </NConfigProvider>
             </div>
             <div class="input-group">
@@ -118,6 +119,17 @@ export default {
     },
 
     methods: {
+        validateInputs(type) {
+            if (type === 'brands') {
+                if (this.selectedModel) this.selectedModel = '';
+                if (this.selectedYear) this.selectedYear = '';
+            }
+
+            if (type === 'models') {
+                if (this.selectedYear) this.selectedYear = '';
+            }
+        },
+
         consult() {
             this.$router.push({
                 path: '/car-analysis',
