@@ -2,14 +2,17 @@
     <div class="modal-overlay">
         <div class="modal-content">
             <div class="header">
+                <NIcon v-if="view === 'comparison'" size="24" @click="view = 'analysis'" class="action-icon">
+                    <ArrowBack />
+                </NIcon>
                 <h1 class="title">{{ title }}</h1>
-                <NIcon size="24" @click="closeModal" class="close-icon">
+                <NIcon size="24" @click="closeModal" class="action-icon">
                     <Close />
                 </NIcon>
             </div>
-            <div class="content">
+            <div v-if="view === 'analysis'" class="content">
                 <div class="car-fipe">
-                    <h3 class="fipe-title">{{fipeTitle}}</h3>
+                    <h3 class="fipe-title">{{ fipeTitle }}</h3>
                     <p class="fipe-value">{{ fipeData.price }}</p>
                     <p v-if="fipeData.warning" class="fipe-warning">{{ fipeData.warning }}</p>
                 </div>
@@ -22,7 +25,8 @@
                             </NIcon>
                             {{ formatReview(review) }}
                         </li>
-                        <span v-if="!positiveReviews.length" class="no-review">Sem comentários positivos mantidos pela Inteligência
+                        <span v-if="!positiveReviews.length" class="no-review">Sem comentários positivos mantidos pela
+                            Inteligência
                             Artificial.</span>
                     </ul>
                     <ul>
@@ -33,7 +37,8 @@
                             </NIcon>
                             {{ formatReview(review) }}
                         </li>
-                        <span v-if="!negativeReviews.length" class="no-review">Sem comentários negativos mantidos pela Inteligência
+                        <span v-if="!negativeReviews.length" class="no-review">Sem comentários negativos mantidos pela
+                            Inteligência
                             Artificial.</span>
                     </ul>
                     <ul>
@@ -44,21 +49,55 @@
                             </NIcon>
                             {{ formatReview(review) }}
                         </li>
-                        <span v-if="!neutralReviews.length" class="no-review">Sem comentários neutros mantidos pela Inteligência
+                        <span v-if="!neutralReviews.length" class="no-review">Sem comentários neutros mantidos pela
+                            Inteligência
                             Artificial.</span>
                     </ul>
                 </div>
                 <div class="scraped-sites">
-                    <h3>Fontes usadas:</h3>
+                    <h3>Fontes usadas nesta análise:</h3>
                     <ul>
                         <li v-for="site in scrapedSites" :key="site" class="site-item">
-                            <NIcon  style="cursor: pointer; margin-right: 20px" size="14">
+                            <NIcon style="cursor: pointer; margin-right: 20px" size="14">
                                 <a :href="site" target="_blank"></a>
                                 <OpenOutline />
                             </NIcon>
                             <a :href="site" target="_blank" class="link">{{ site }}</a>
                         </li>
                     </ul>
+                </div>
+                <div class="compare-car-button">
+                    <NConfigProvider :themeOverrides="buttonThemes">
+                        <n-button size="large" type="primary" round @click="view = 'comparison'">Clique para comparar
+                            com carros da mesma faixa de preço</n-button>
+                    </NConfigProvider>
+                </div>
+            </div>
+            <div v-if="view === 'comparison'">
+                <div v-if="!carComparison?.scores?.length">
+                    <h3 class="no-comparison-data">Ainda não temos dados suficientes para comparar este carro...<br>:(
+                    </h3>
+                </div>
+                <div v-else class="comparison-data">
+                    <div class="main-car">
+                        <h3>{{ mainCar.model }}</h3>
+                        <p style="font-family: 'Lato', sans-serif; font-size: 18px;">Preço: {{
+                            formattedCarPrice(mainCar.price) }}</p>
+                        <StarRating style="display: flex; justify-content: center;" :value="mainCar.score" />
+                    </div>
+
+                    <h3 style="color: var(--secondary-color); margin-top: 50px;">Clique em um modelo abaixo para
+                        realizar uma
+                        consulta detalhada:
+                    </h3>
+                    <div class="comparison-cars">
+                        <div v-for="car in carComparison.scores" :key="car.model" class="comparison-item"
+                            @click="consultComparisonCar(car)">
+                            <h3>{{ car.model }}</h3>
+                            <p style="font-size: 18px;">Preço: {{ formattedCarPrice(car.price) }}</p>
+                            <StarRating :value="car.score" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,8 +106,9 @@
 </template>
 
 <script>
-import { NIcon } from 'naive-ui';
-import { Close, OpenOutline, Person } from '@vicons/ionicons5';
+import { NIcon, NConfigProvider, NButton } from 'naive-ui';
+import { ArrowBack, Close, OpenOutline, Person } from '@vicons/ionicons5';
+import StarRating from './StarRating.vue';
 
 export default {
     name: 'CarAnalysis',
@@ -77,14 +117,30 @@ export default {
         NIcon,
         Close,
         Person,
-        OpenOutline
+        OpenOutline,
+        NConfigProvider,
+        NButton,
+        ArrowBack,
+        StarRating
+    },
+
+    data() {
+        return {
+            buttonThemes: {
+                common: {
+                    primaryColorPressed: 'var(--primary-color)',
+                    primaryColor: 'var(--primary-color)',
+                    primaryColorHover: 'var(--primary-color)',
+                },
+                Button: {
+                    textColor: 'white',
+                }
+            },
+            view: 'analysis',
+        }
     },
 
     props: {
-        title: {
-            type: String,
-            required: true
-        },
         positiveReviews: {
             type: Array,
             required: true,
@@ -109,16 +165,52 @@ export default {
             type: Object,
             required: true,
             default: () => ({})
+        },
+        carComparison: {
+            type: Object,
+            required: true,
+            default: () => ({})
+        },
+        mainCar: {
+            type: Object,
+            required: true,
+            default: () => ({})
         }
     },
 
     computed: {
         fipeTitle() {
             return this.fipeData?.date ? `Valor FIPE em ${this.fipeData.date}` : 'Valor FIPE';
+        },
+
+        title() {
+            if (this.view === 'comparison') {
+                return `Comparação de carros da mesma faixa de preço`;
+            }
+
+            return `Análise completa do ${this.mainCar.model} ${this.mainCar.year}`
         }
     },
 
     methods: {
+        consultComparisonCar(car) {
+            this.closeModal();
+            this.$emit('consult-comparison-car', car);
+        },
+
+        formattedCarPrice(carPrice) {
+            const priceNumber = Number(carPrice);
+
+            if (isNaN(priceNumber)) return carPrice;
+
+            const price = priceNumber.toLocaleString('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+            return `R$ ${price}`;
+        },
+
         closeModal() {
             this.$emit('close-modal');
         },
@@ -188,7 +280,7 @@ export default {
                 text-align: center;
             }
 
-            .close-icon {
+            .action-icon {
                 cursor: pointer;
                 margin-left: auto;
                 margin-bottom: 40px;
@@ -254,6 +346,7 @@ export default {
                     color: var(--primary-color);
                     margin-bottom: 20px;
                     text-align: center;
+                    margin-top: 10px;
                 }
 
                 li {
@@ -274,12 +367,10 @@ export default {
 
                 .negative-reviews-title {
                     color: red;
-                    margin-top: 30px;
                 }
 
                 .neutral-reviews-title {
                     color: #808080;
-                    margin-top: 30px;
                 }
 
                 .review-item {
@@ -293,8 +384,8 @@ export default {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 20px;
-            
+            margin-top: 50px;
+
             h3 {
                 font-size: 20px;
                 color: var(--secondary-color);
@@ -329,6 +420,59 @@ export default {
                     }
                 }
             }
+        }
+
+        .compare-car-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .no-comparison-data {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            color: var(--secondary-color);
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .comparison-data {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .main-car {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .comparison-cars {
+            display: flex;
+            margin-top: 40px;
+            gap: 120px;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            font-family: 'Lato', sans-serif;
+            cursor: pointer;
+        }
+
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            color: var(--primary-color);
         }
     }
 }

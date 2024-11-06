@@ -45,9 +45,10 @@
                     <n-button type="primary" round @click="goBackToHome">Voltar para a página inicial</n-button>
                 </NConfigProvider>
             </div>
-            <Modal v-if="isModalOpen" :title="`Análise completa do ${model} ${year}`" @close-modal="isModalOpen = false"
-                :positiveReviews="analysis.positives" :negativeReviews="analysis.negatives"
-                :neutralReviews="analysis.neutral" :scrapedSites="analysis.scraped_sites" :fipe-data="fipeData" />
+            <Modal v-if="isModalOpen" @close-modal="isModalOpen = false" :positiveReviews="analysis.positives"
+                :negativeReviews="analysis.negatives" :neutralReviews="analysis.neutral"
+                :scrapedSites="analysis.scraped_sites" :fipe-data="fipeData" :carComparison="carComparison"
+                :mainCar="{ model, car, price, year }" @consultComparisonCar="consultComparisonCar" />
         </div>
     </div>
 </template>
@@ -76,6 +77,7 @@ export default {
             year: this.$route.query.year,
             price: this.$route.query.price,
             analysis: {},
+            carComparison: {},
             buttonThemes: {
                 common: {
                     primaryColorPressed: 'var(--primary-color)',
@@ -94,6 +96,7 @@ export default {
         this.loading = true;
         await this.getCarAnalysis();
         await this.getCarFipe();
+        await this.getCarComparison();
         this.loading = false;
     },
 
@@ -194,6 +197,22 @@ export default {
     },
 
     methods: {
+        async consultComparisonCar(car) {
+            this.loading = true;
+
+            this.brand = car.brand;
+            this.model = car.model;
+            this.year = car.year;
+            this.price = car.price;
+
+            await this.getCarAnalysis();
+            await this.getCarFipe();
+            await this.getCarComparison();
+
+            this.loading = false;
+        },
+
+
         formatReview(review) {
             const toRemove = ['Pontos positivos:', 'Pontos negativos:', 'Comentários:'];
 
@@ -248,6 +267,15 @@ export default {
                 })
 
             this.analysis = response.data?.analysis?.[0] || {};
+        },
+
+        async getCarComparison() {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/comparison/${this.model}`)
+                .catch(error => {
+                    console.log(error)
+                })
+
+            this.carComparison.scores = response.data?.scores || []
         }
     }
 }
