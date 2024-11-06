@@ -68,8 +68,9 @@ export default {
 
             tireImg.classList.add('spinning');
 
-            const brands = await this.getBrands();
-            const cars = await this.getCars();
+            const [brands, cars] = await Promise.all([
+                this.getBrands(), this.getCars()
+            ]);
 
             this.$store.setCars(cars);
             this.$store.setBrands(brands);

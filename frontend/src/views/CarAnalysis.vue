@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div v-if="score !== 'NO_SCORE'" class="title" style="margin-top: 40px; font-size: 18px">
-                <h3>O que as pessoas estão falando sobre {{ model }}:</h3>
+                <h3>O que as pessoas estão falando sobre {{ model }} {{ year }}:</h3>
             </div>
             <div class="reviews-container">
                 <div class="positive-review" v-for="review in previewReviews.positives" :key="review">
@@ -45,9 +45,9 @@
                     <n-button type="primary" round @click="goBackToHome">Voltar para a página inicial</n-button>
                 </NConfigProvider>
             </div>
-            <Modal v-if="isModalOpen" :title="`Análise completa do ${model}`" @close-modal="isModalOpen = false"
-                :positiveReviews="analysis.positives" :negativeReviews="analysis.negatives" :neutralReviews="analysis.neutral"
-                :scrapedSites="analysis.scraped_sites" :fipe-data="fipeData" />
+            <Modal v-if="isModalOpen" :title="`Análise completa do ${model} ${year}`" @close-modal="isModalOpen = false"
+                :positiveReviews="analysis.positives" :negativeReviews="analysis.negatives"
+                :neutralReviews="analysis.neutral" :scrapedSites="analysis.scraped_sites" :fipe-data="fipeData" />
         </div>
     </div>
 </template>

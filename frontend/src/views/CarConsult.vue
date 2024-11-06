@@ -5,7 +5,6 @@
         </div>
         <div class="inputs">
             <div class="input-group">
-                <!-- TODO: ao trocar se eu tiver Modelo/Ano selecionado, e trocar a Marca/Modelo selecionados, os selects devem ser limpos -->
                 <p>Marca*</p>
                 <NConfigProvider :themeOverrides="theme">
                     <n-select v-model:value="selectedBrand" filterable placeholder="Selecione uma marca"
