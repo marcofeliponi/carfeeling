@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from services import services
-from scripts import web_scraping
-import asyncio
+# from scripts import web_scraping
+# import asyncio
 
 bp = Blueprint('routes', __name__)
 
@@ -22,12 +22,12 @@ def get_car_analysis(car):
     query_params = request.args
     return services.get_car_analysis_service(car, query_params)
 
-@bp.route('/api/scrape/<path:car>', methods=['POST'])
-def scrape_reviews(car):
-    year = request.args.get('year')
-    response = asyncio.run(web_scraping.run(car, year))
+# @bp.route('/api/scrape/<path:car>', methods=['POST'])
+# def scrape_reviews(car):
+#     year = request.args.get('year')
+#     response = asyncio.run(web_scraping.run(car, year))
     
-    if response:
-        return { 'status': 'success', 'data': response }
+#     if response:
+#         return { 'status': 'success', 'data': response }
     
-    return { 'status': 'error', 'message': 'Scraped failed' }
+#     return { 'status': 'error', 'message': 'Scraped failed' }
