@@ -81,7 +81,7 @@ export default {
                 }
             });
 
-            return brands;
+            return brands.sort((a, b) => a.label.localeCompare(b.label));
         },
 
         models() {
@@ -99,7 +99,7 @@ export default {
                     }
                 });
 
-            return cars
+            return cars.sort((a, b) => a.label.localeCompare(b.label));
         },
 
         years() {
