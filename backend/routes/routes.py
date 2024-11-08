@@ -22,6 +22,10 @@ def get_car_analysis(car):
     query_params = request.args
     return services.get_car_analysis_service(car, query_params)
 
+@bp.route('/api/comparison/<path:car>', methods=['GET'])
+def get_car_comparison(car):
+    return services.get_car_comparison_service(car)
+
 # @bp.route('/api/scrape/<path:car>', methods=['POST'])
 # def scrape_reviews(car):
 #     year = request.args.get('year')

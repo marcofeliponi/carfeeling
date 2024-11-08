@@ -83,3 +83,41 @@ def get_car_analysis_service(car, query_params):
         return data
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
+    
+def get_car_comparison_service(car):
+    try:
+        compared_car = db.collection("cars").where("model", "==", car).get()
+
+        if not compared_car:
+            return {"error": f"{car} not found"}
+
+        compared_car_price = compared_car[0].to_dict()["price"]
+        lower_bound = compared_car_price - 10000
+        upper_bound = compared_car_price + 10000
+        
+        comparison_cars = db.collection("cars").where("price", ">", lower_bound).where("price", "<", upper_bound).limit(3).get()
+    
+        if not comparison_cars:
+            return {"error": f"No cars found to compare with {car}"}
+
+        scores = []
+        for car in comparison_cars:
+            model = car.to_dict()["model"]
+            price = car.to_dict()["price"]
+            brand = car.to_dict()["brand"]
+            year  = car.to_dict()["year"]
+
+            score = db.collection("car_analysis").where("car", "==", model).get()
+
+            if not score:
+                scores.append({"model": model, "score": 0, "price": price, "brand": brand, "year": year})
+            else:
+                scores.append({"model": model, "score": score[0].to_dict()["score"], "price": price, "brand": brand, "year": year})
+
+        data = {
+            "scores": scores
+        }
+        
+        return data
+    except Exception as e:
+        return {"error": f"An error occurred: {str(e)}"}
