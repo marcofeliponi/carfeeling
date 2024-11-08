@@ -44,12 +44,8 @@ export default {
 .rating {
   display: flex;
   direction: row-reverse;
-}
-
-.rating {
   margin-top: 5px;
   font-size: 2.5em;
 }
-
 
 </style>

@@ -91,11 +91,12 @@
                         consulta detalhada:
                     </h3>
                     <div class="comparison-cars">
-                        <div v-for="car in carComparison.scores" :key="car.model" class="comparison-item"
-                            @click="consultComparisonCar(car)">
-                            <h3>{{ car.model }}</h3>
-                            <p style="font-size: 18px;">Preço: {{ formattedCarPrice(car.price) }}</p>
-                            <StarRating :value="car.score" />
+                        <div v-for="car in carComparison.scores" :key="car.model" 
+                            @click="consultComparisonCar(car)" style="width: 18%;">
+                            <h3 class="comparison-model-title" :title="car.model">{{ car.model }}</h3>
+                            <p style="font-size: 18px; display: flex; justify-content: center;">Preço: {{
+                                formattedCarPrice(car.price) }}</p>
+                            <StarRating style="display: flex; justify-content: center;" :value="car.score" />
                         </div>
                     </div>
                 </div>
@@ -460,13 +461,12 @@ export default {
             justify-content: center;
         }
 
-        .comparison-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            font-family: 'Lato', sans-serif;
+        .comparison-model-title {
             cursor: pointer;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         h3 {
