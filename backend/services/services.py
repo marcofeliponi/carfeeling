@@ -70,8 +70,21 @@ def get_car_analysis_service(car, query_params):
             car_and_year = f'{car}_{query_params.get("year")}'
             car_analysis = db.collection("car_analysis").where("carAndYear", "==", car_and_year).get()
 
-        if not car_analysis:
+            if not car_analysis:
+                return {"error": f"No analysis found for {car} {query_params.get('year')}"}
+        else:
             car_analysis = db.collection("car_analysis").where("car", "==", car).get()
+
+            if not car_analysis:
+                start_at = f'{car}_'
+                end_at = start_at + '\uf8ff'
+
+                car_analysis = db.collection('car_analysis') \
+                    .where('carAndYear', '>=', start_at) \
+                    .where('carAndYear', '<=', end_at) \
+                    .get()
+                
+                car_analysis = sorted(car_analysis, key=lambda x: x.to_dict()['created_at'], reverse=True)
 
         if not car_analysis:
             return {"error": f"No analysis found for {car}"}
