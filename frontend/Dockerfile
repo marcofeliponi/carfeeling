@@ -1,5 +1,7 @@
 FROM node:18-alpine AS build
 
+ENV TESTE=$TESTE
+
 WORKDIR /carfeeling
 
 COPY package*.json ./
