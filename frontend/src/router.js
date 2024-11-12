@@ -3,6 +3,7 @@ import { createMemoryHistory, createRouter } from 'vue-router'
 import HomePage from './views/HomePage.vue'
 import CarConsult from './views/CarConsult.vue'
 import CarAnalysis from './views/CarAnalysis.vue'
+import AiChat from './views/AiChat.vue'
 
 const routes = [
   { 
@@ -19,6 +20,11 @@ const routes = [
     path: '/car-analysis',
     name: 'carAnalysis',
     component: CarAnalysis
+  },
+  {
+    path: '/ai-chat',
+    name: 'AiChat',
+    component: AiChat
   }
 ]
 
