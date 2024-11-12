@@ -26,12 +26,19 @@ def get_car_analysis(car):
 def get_car_comparison(car):
     return services.get_car_comparison_service(car)
 
-# @bp.route('/api/scrape/<path:car>', methods=['POST'])
-# def scrape_reviews(car):
+# @bp.route('/api/scrape/', methods=['POST'])
+# def scrape_reviews():
+#     car = request.args.get('car')
 #     year = request.args.get('year')
 #     response = asyncio.run(web_scraping.run(car, year))
     
 #     if response:
 #         return { 'status': 'success', 'data': response }
     
-#     return { 'status': 'error', 'message': 'Scraped failed' }
+    # return { 'status': 'error', 'message': 'Scraped failed' }
+
+@bp.route('/api/ai-chat/', methods=['POST'])
+def ai_chat():
+    body = request.json
+    token = request.headers.get('Authorization')
+    return services.ai_chat_service(token, messages=body['messages'])

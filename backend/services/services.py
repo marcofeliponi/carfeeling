@@ -1,4 +1,9 @@
+import os
+import json
 from firebase_admin import firestore, initialize_app
+import requests
+from google.oauth2 import id_token
+from google.auth.transport import requests as google_requests
 
 initialize_app()
 db = firestore.client()
@@ -134,3 +139,40 @@ def get_car_comparison_service(car):
         return data
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
+
+def ai_chat_service(token, messages=None):
+    try:   
+        idinfo = id_token.verify_oauth2_token(token, google_requests.Request(), os.environ.get("google-client-id"))
+
+        if not idinfo["sub"]:
+            return {"error": "Invalid token"}
+
+        if not messages:
+            return {"error": "Messages are required at this endpoint"}
+
+        default_rule = {
+            "role": "system",
+            "content": "Você é um auxiliar do site Carfeeling em opiniões sobre o veículo informado pelo usuário, você pode apenas responder sobre este carro e de forma objetiva."
+        }
+        messages.insert(0, default_rule)
+
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {_get_openapi_key()}",
+        }
+        data = {
+            "model": "gpt-3.5-turbo-0125",
+            "n": 1,
+            "messages": messages
+        }
+    
+        response = requests.post("https://api.openai.com/v1/chat/completions", json=data, headers=headers)
+        
+        return response.json()
+    except Exception as e:
+        return {"error": f"An error occurred: {str(e)}"}
+    
+def _get_openapi_key():
+    secret = os.environ.get("openai-apikey")
+    if secret:
+        return json.loads(secret)
