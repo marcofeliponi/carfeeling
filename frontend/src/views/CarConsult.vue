@@ -1,43 +1,55 @@
 <template>
     <div class="main">
-        <div class="title">
-            <h1>Selecione um modelo e analisaremos para você!</h1>
+        <div v-if="type === 'chat' && notAuthenticated">
+            <div class="title">
+                <h1>Para prosseguir é necessário autenticar-se com o Google:</h1>
+            </div>
+            <GoogleLogin style="display: flex; justify-content: center"
+                :clientId="googleClientId"
+                :callback="onSuccess" :error="onFailure" :buttonConfig="{ size: 'large' }" />
         </div>
-        <div class="inputs">
-            <div class="input-group">
-                <p>Marca*</p>
+        <div v-else>
+            <div class="title">
+                <h1>{{ title }}</h1>
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <p>Marca*</p>
+                    <NConfigProvider :themeOverrides="theme">
+                        <n-select v-model:value="selectedBrand" filterable placeholder="Selecione uma marca"
+                            :options="brands" size="large" @click="validateInputs('brands')" />
+                    </NConfigProvider>
+                </div>
+                <div class="input-group">
+                    <p>Modelo*</p>
+                    <NConfigProvider :themeOverrides="theme">
+                        <n-select v-model:value="selectedModel" filterable :disabled="!selectedBrand"
+                            placeholder="Selecione um modelo" :options="models" size="large"
+                            @click="validateInputs('models')" />
+                    </NConfigProvider>
+                </div>
+                <div class="input-group">
+                    <p>Ano</p>
+                    <NConfigProvider :themeOverrides="theme">
+                        <n-select v-model:value="selectedYear" filterable :disabled="!selectedBrand || !selectedModel"
+                            placeholder="Selecione o ano do modelo" :options="years" size="large" />
+                    </NConfigProvider>
+                </div>
+            </div>
+            <div class="confirm-button">
                 <NConfigProvider :themeOverrides="theme">
-                    <n-select v-model:value="selectedBrand" filterable placeholder="Selecione uma marca"
-                        :options="brands" size="large" @click="validateInputs('brands')" />
+                    <n-button @click="consult" type="primary" size="large" :disabled="!selectedBrand || !selectedModel">
+                        {{ consultButtonLabel }}
+                    </n-button>
                 </NConfigProvider>
             </div>
-            <div class="input-group">
-                <p>Modelo*</p>
-                <NConfigProvider :themeOverrides="theme">
-                    <n-select v-model:value="selectedModel" filterable :disabled="!selectedBrand"
-                        placeholder="Selecione um modelo" :options="models" size="large" @click="validateInputs('models')" />
-                </NConfigProvider>
-            </div>
-            <div class="input-group">
-                <p>Ano</p>
-                <NConfigProvider :themeOverrides="theme">
-                    <n-select v-model:value="selectedYear" filterable :disabled="!selectedBrand || !selectedModel"
-                        placeholder="Selecione o ano do modelo" :options="years" size="large" />
-                </NConfigProvider>
-            </div>
-        </div>
-        <div class="confirm-button">
-            <NConfigProvider :themeOverrides="theme">
-                <n-button @click="consult" type="primary" size="large" :disabled="!selectedBrand || !selectedModel">
-                    Consultar
-                </n-button>
-            </NConfigProvider>
         </div>
     </div>
 </template>
 
 <script>
 import { NSelect, NConfigProvider, NButton } from 'naive-ui';
+import { GoogleLogin } from 'vue3-google-login'
 
 export default {
     name: 'CarConsult',
@@ -46,6 +58,7 @@ export default {
         NSelect,
         NConfigProvider,
         NButton,
+        GoogleLogin
     },
 
     data() {
@@ -55,13 +68,16 @@ export default {
             selectedBrand: '',
             selectedModel: '',
             selectedYear: '',
+            type: this.$route.query.type,
+            notAuthenticated: true,
             theme: {
                 common: {
                     primaryColor: '#14213D',
                     primaryColorHover: '#14213D',
                     primaryColorPressed: '#14213D',
                 }
-            }
+            },
+            googleClientId: '754776355560-gq45cbnfua1jlb7g0cnbktj616n3b7op.apps.googleusercontent.com' // not a secret, it's ok to be exposed
         }
     },
 
@@ -71,6 +87,18 @@ export default {
     },
 
     computed: {
+        title() {
+            return this.type === 'consult'
+                ? 'Selecione um modelo e analisaremos para você!'
+                : 'Selecione um modelo para iniciar o chat com a IA!';
+        },
+
+        consultButtonLabel() {
+            return this.type === 'consult'
+                ? 'Consultar'
+                : 'Iniciar Chat';
+        },
+
         brands() {
             const brands = this.carBrands.map(brand => {
                 const upperCaseName = brand.name.toUpperCase();
@@ -118,6 +146,15 @@ export default {
     },
 
     methods: {
+        onFailure(response) {
+            this.notAuthenticated = true;
+        },
+
+        onSuccess(response) {
+            this.notAuthenticated = false;
+            this.$store.setUserToken(response.credential);
+        },
+
         validateInputs(type) {
             if (type === 'brands') {
                 if (this.selectedModel) this.selectedModel = '';
@@ -131,7 +168,7 @@ export default {
 
         consult() {
             this.$router.push({
-                path: '/car-analysis',
+                path: this.type === 'consult' ? '/car-analysis' : '/ai-chat',
                 query: {
                     brand: this.selectedBrand,
                     model: this.selectedModel,

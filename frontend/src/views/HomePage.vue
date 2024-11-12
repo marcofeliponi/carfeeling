@@ -8,10 +8,16 @@
                 especialistas e consumidores sobre carros nacionais e oferecendo insights que ajudam na sua decisão.
             </h4>
         </div>
-        <div class="start-button">
-            <n-button style="width: 300px; height: 50px;" :loading="loading" color="#14213D" size="large"
-                @click="start">
-                Começar
+        <div class="consult-button">
+            <n-button style="width: 400px; height: 50px;" :loading="loading" color="#14213D" size="large"
+                @click="start('consult')">
+                Consultar Análise da Inteligência Artificial
+            </n-button>
+        </div>
+        <div class="chat-button">
+            <n-button style="background-color: var(--secondary-color); width: 400px; height: 50px;" :loading="loading"
+                color="#14213D" size="large" @click="start('chat')">
+                Conversar com a Inteligência Artificial
             </n-button>
         </div>
         <div class="tire-footer">
@@ -29,7 +35,7 @@ export default {
     name: 'HomePage',
 
     components: {
-        NButton
+        NButton,
     },
 
     data() {
@@ -71,7 +77,7 @@ export default {
             }
         },
 
-        async start() {
+        async start(type) {
             const tireImg = document.querySelector('.tire-img')
 
             tireImg.classList.add('spinning');
@@ -83,7 +89,12 @@ export default {
             this.$store.setCars(cars);
             this.$store.setBrands(brands);
 
-            this.$router.push('/car-consult')
+            this.$router.push({
+                path: '/car-consult',
+                query: {
+                    type,
+                }
+            })
 
             tireImg.classList.remove('spinning');
         }
@@ -116,8 +127,13 @@ export default {
         font-size: 22px;
     }
 
-    .start-button {
-        margin-top: 80px;
+    .consult-button {
+        margin-top: 50px;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .chat-button {
+        margin-top: 30px;
         font-family: 'Montserrat', sans-serif;
     }
 
