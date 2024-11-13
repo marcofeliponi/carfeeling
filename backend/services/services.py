@@ -174,5 +174,4 @@ def ai_chat_service(token, messages=None):
     
 def _get_openapi_key():
     secret = os.environ.get("openai-apikey")
-    if secret:
-        return json.loads(secret)
+    return secret
