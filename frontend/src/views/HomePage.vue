@@ -48,14 +48,6 @@ export default {
 
     },
 
-    mounted() {
-        console.log('teste de variavel cloud run', {
-            importMetaEnv: import.meta.env.TESTE,
-            importMeta: import.meta,
-            processEnv: process.env
-        })
-    },
-
     methods: {
         async getBrands() {
             try {

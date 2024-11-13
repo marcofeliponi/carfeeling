@@ -48,7 +48,7 @@
             <Modal v-if="isModalOpen" @close-modal="isModalOpen = false" :positiveReviews="analysis.positives"
                 :negativeReviews="analysis.negatives" :neutralReviews="analysis.neutral"
                 :scrapedSites="analysis.scraped_sites" :fipe-data="fipeData" :carComparison="carComparison"
-                :mainCar="{ model, car, price, year }" @consultComparisonCar="consultComparisonCar" />
+                :mainCar="{ model, car, price, year, score: analysis.score }" @consultComparisonCar="consultComparisonCar" />
         </div>
     </div>
 </template>
