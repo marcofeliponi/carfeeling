@@ -13,7 +13,10 @@ const getBrandCode = async (targetBrand) => {
   const response = await apiClient.get('/carros/marcas')
 
   const brandCode = response.data.find(
-    (brand) => brand.nome.toLowerCase() === targetBrand.toLowerCase()
+    (brand) => {
+      const brandName = brand.nome.includes(' - ') ? brand.nome.split(' - ')[1] : brand.nome
+      return brandName.toLowerCase() === targetBrand.toLowerCase()
+    }
   )?.codigo
 
   return brandCode
