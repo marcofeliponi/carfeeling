@@ -1,5 +1,6 @@
-![logo](https://github.com/user-attachments/assets/d6b8e9f3-4736-4a85-ae80-e516c58d5e31)
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d6b8e9f3-4736-4a85-ae80-e516c58d5e31" />
+</p>
 
 
 ## Introdução  
