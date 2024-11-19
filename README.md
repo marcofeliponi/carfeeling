@@ -308,32 +308,67 @@ Tela para chat com a Inteligência Artificial: Desenvolver tela para conversar c
 
   
 
-Consultar por automóveis de interesse, de forma filtrada ou não.  
+#### RF1 - Consultar por automóveis de interesse, de forma filtrada ou não:
+O sistema deve permitir que os usuários realizem consultas de análises fornecendo parâmetros de marca, modelo e ano do veículo.
+
 
   
 
-Visualizar as fontes usadas para o resultado apresentado.  
+#### RF2 - Visualizar as fontes usadas para gerar a análise do veículo:
+O usuário poderá em cada consulta de veículo visualizar os sites que foram usados como fonte para web scraping e análise de inteligência artificial. Essas fontes podem variar de acordo com a análise.
 
   
 
-Avaliar o resultado ou o site como um todo.  
+#### RF3 - Visualizar pontos positivos e negativos do veículo durante a consulta:
+Em cada consulta a análise gerada disponibilizará ao usuário uma tela mostrandos pontos os positivos e negativos do veículo em questão, com informações vindas do web scraping.
 
+
+#### RF4 - Visualizar o valor de tabela FIPE do veículo:
+Cada consulta busca em tempo real o valor FIPE do veículo através de uma API integrada, o usuário deve visualizar essa informação em todas as consulta. Caso o valor não seja encontrado na API, será exibido um valor existente na base de dados.
   
+
+#### RF5 - Comparar o veículo consultado com outros veículos de faixa de preço semelhante:
+Durante uma consulta o usuário deve ter a opção de visualizar como a nota geral do veículo consultado está em relação à outros 3 veículos com uma faixa de preço parecida.
+
+
+#### RF6 - Autenticação com integração do Google:
+O usuário tem a opção de se autenticar-se usando a API de Integração Google OAuth.
+
+
+#### RF7 - Chat com Assistente de Inteligência Artificial.
+Após autenticado, o usuário pode iniciar um chat com uma IA Assistente para tirar dúvidas sobre um veículo específico.
+
+
 
 ### Requisitos Não Funcionais:  
 
   
 
-Garantir um uso intuitivo da aplicação.  
+#### RNF1 - Garantir um uso intuitivo da aplicação:
+O sistema deve ser fácil e prático, com interface intuitiva.
 
   
 
-Assegurar velocidade na resposta das consultas, proporcionando desempenho.  
+#### RNF2 - Assegurar velocidade na resposta das consultas, proporcionando alto desempenho:
+O sistema precisa ter respostas rápidas em todas as telas, desde às consultas de análises até o chat com IA.
 
   
 
-Proporcionar análises precisas e dados relevantes.  
+#### RNF3 - Proporcionar análises precisas e dados relevantes:
+O sistema de scraping e análise de IA deve manter dados que façam sentido com o contexto da consulta, apenas com informações relevantes.
 
-  
 
-Manter informações atualizadas diariamente através de agendamentos. 
+#### RNF4 - Análises atualizadas semanalmente:
+O sistema deve realizar novos scrapings e análises de sentimentos toda segunda-feira, às 00:00h.
+
+#### RNF5 - Chat útil com Assistente de Inteligência Artificial:
+O chat disponiblizado no sistema deve ser adaptado ao contexto do site e proporcionar uma conversa relevante, esclarecendo dúvidas do usuário sobre o veículo escolhido.
+
+#### RNF6 - Escalabilidade:
+O sistema deve estar apto à escalabilidade vertical no ecossistema Google Cloud, no Firestore e também Cloud Run.
+
+#### RNF7 - Disponibilidade:
+O sistema deve estar disponível em produção todos os dias da semana, 24 horas por dia.
+
+#### RNF9 - Tolerância a falhas:
+O sistema deve continuar funcionando mesmo que a API de terceiros (como a FIPE Parallelum) esteja indisponível, usando informações previamente armazenadas.
