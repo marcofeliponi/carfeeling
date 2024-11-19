@@ -13,6 +13,7 @@
 - [Considerações de Segurança](#consideracoes-de-seguranca)
 - [Backlog do Projeto](#backlog-do-projeto)
 - [Requisitos de Software](#requisitos-de-software)
+- [Modelagem](#modelagem)
 
 ## Introdução <a id='introducao'></a>
 
@@ -372,3 +373,8 @@ O sistema deve estar disponível em produção todos os dias da semana, 24 horas
 
 #### RNF9 - Tolerância a falhas:
 O sistema deve continuar funcionando mesmo que a API de terceiros (como a FIPE Parallelum) esteja indisponível, usando informações previamente armazenadas.
+
+
+## Modelagem
+
+Para a organização de backlog e tarefas à serem desenvolvidas foi utilizada a ferramenta Trello.
