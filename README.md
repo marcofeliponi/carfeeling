@@ -5,16 +5,16 @@
 ## Índice
 
 - [Introdução](#introducao)
-- [Descrição do Projeto](#decricao-do-projeto)
+- [Descrição do Projeto](#descricao-do-projeto)
 - [Especificação Técnica](#especificacao-tecnica)
 - [Considerações de Design](#consideracoes-de-design)
-- [Modelo C4 (Contexto, Contêiner, Componente, Código):](#modelo-c4-contexto-conteiner-componente-codigo)
+- [Modelo C4 (Contexto, Contêiner, Componente, Código):](#modelo-c4)
 - [Stack Tecnológica](#stack-tecnologica)
 - [Considerações de Segurança](#consideracoes-de-seguranca)
 - [Backlog do Projeto](#backlog-do-projeto)
 - [Requisitos de Software](#requisitos-de-software)
 
-## Introdução  
+## Introdução <a id='introducao'></a>
 
   
 
@@ -34,7 +34,7 @@ O objetivo central do projeto é simplificar todo o processo de pesquisa de aval
 
   
 
-## Descrição do Projeto  
+## Descrição do Projeto <a id='descricao-do-projeto'></a>
 
   
 
@@ -66,7 +66,7 @@ Bloqueio de requisições de web scraping pelo Google caso a quantidade de consu
 
   
 
-## Especificação Técnica  
+## Especificação Técnica <a id='especificacao-tecnica'></a>
 
   
 
@@ -78,7 +78,7 @@ O projeto irá usar para a análise de sentimentos modelos de Inteligência Arti
 
   
 
-## Considerações de Design  
+## Considerações de Design <a id='consideracoes-de-design'></a>
 
   
 
@@ -112,7 +112,7 @@ O projeto usará um modelo MVC, onde o Controller se comunicará com a View e po
 
   
 
-## Modelo C4 (Contexto, Contêiner, Componente, Código):   
+## Modelo C4 (Contexto, Contêiner, Componente, Código): <a id='modelo-c4'></a> 
 
   
 
@@ -146,7 +146,7 @@ Por último, o código, que como citado anteriormente será desenvolvido em Vue.
 
   
 
-## Stack Tecnológica  
+## Stack Tecnológica <a id='stack-tecnologica'></a>
 
   
 
@@ -178,7 +178,7 @@ A gestão das atividades será feita pelo modelo Kanban no software Trello.
 
   
 
-## Considerações de Segurança  
+## Considerações de Segurança <a id='consideracoes-de-seguranca'></a>
 
   
 
