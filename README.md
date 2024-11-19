@@ -2,6 +2,17 @@
   <img src="https://github.com/user-attachments/assets/d6b8e9f3-4736-4a85-ae80-e516c58d5e31" />
 </p>
 
+## Índice
+
+- [Introdução](#introducao)
+- [Descrição do Projeto](#decricao-do-projeto)
+- [Especificação Técnica](#especificacao-tecnica)
+- [Considerações de Design](#consideracoes-de-design)
+- [Modelo C4 (Contexto, Contêiner, Componente, Código):](#modelo-c4-contexto-conteiner-componente-codigo)
+- [Stack Tecnológica](#stack-tecnologica)
+- [Considerações de Segurança](#consideracoes-de-seguranca)
+- [Backlog do Projeto](#backlog-do-projeto)
+- [Requisitos de Software](#requisitos-de-software)
 
 ## Introdução  
 
