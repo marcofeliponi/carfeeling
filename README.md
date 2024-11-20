@@ -203,7 +203,7 @@ Para evitar estresse do sistema, principalmente no uso do Chat integrado à Open
 
   
 
-Protótipo das Telas: Desenvolver protótipo no Figma das telas que compõem o sistema.  
+Protótipo das Telas: Desenvolver protótipo das telas que compõem o sistema.  
 
   
 
