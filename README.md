@@ -73,7 +73,7 @@ Bloqueio de requisições de web scraping pelo Google caso a quantidade de consu
 
   
 
-O projeto irá usar para a análise de sentimentos modelos de Inteligência Artificial relevantes e amplamente conhecidos, com métodos capazes de filtrar dados relevantes. Os procedimentos incluirão a definição de uma estratégia de coleta de dados, a implementação de algoritmos de web scraping, o desenvolvimento da interface visual e um chat integrado com a OpenAI. Os dados coletados serão armazenados em um formato JSON, contendo informações relevantes sobre o modelo do carro, avaliações coletadas e resultado da análise de sentimento.  
+Na parte de Inteligência Artificial o projeto usa modelos relevantes disponibilizados pela biblioteca Transformers Hugging Face, sendo eles 'facebook/bart-large-mnli' para classificação de relevância, e 'nlptown/bert-base-multilingual-uncased-sentiment' para a análise de sentimentos. Os procedimentos são coleta de dados com algoritmos de web scraping, análise através dos Modelos de IA, e armazennamento dos dados coletados são em um formato JSON, contendo informações relevantes sobre o modelo do carro, avaliações coletadas e resultado da análise de sentimento.  
 
   
 
