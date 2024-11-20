@@ -14,6 +14,8 @@
 - [Backlog do Projeto](#backlog-do-projeto)
 - [Requisitos de Software](#requisitos-de-software)
 - [Modelagem](#modelagem)
+- [Análise de Código](#analise-de-codigo)
+- [Monitoramento](#monitoramento)
 
 ## Introdução <a id='introducao'></a>
 
@@ -378,3 +380,28 @@ O sistema deve continuar funcionando mesmo que a API de terceiros (como a FIPE P
 ## Modelagem
 
 Para a organização de backlog e tarefas à serem desenvolvidas foi utilizada a ferramenta Trello.
+
+
+## Análise de Código <a id='analise-de-codigo'></a>
+
+Eslint para front-end Vue:
+
+![eslint (analise de codigo)](https://github.com/user-attachments/assets/04a5ea94-c93f-4ef1-845e-124c34b2ca4a)
+
+Pylint para back-end Python:
+
+![pylint (analise de codigo)](https://github.com/user-attachments/assets/650feb56-899f-40dc-8b46-58423060d003)
+
+
+## Monitoramento
+
+O ecossistema GCloud disponibiliza um produto integrado para monitoramento/observabilidade, visto que o sistema Carfeeling está hospedado nos serviços GCloud.
+
+Front-end:
+
+![monitoramento (web)](https://github.com/user-attachments/assets/30843f16-e2a8-45c2-95b2-d8302a512b5e)
+
+Back-end:
+
+![image](https://github.com/user-attachments/assets/7e89215f-051e-4343-9e38-edbea886ffc5)
+
