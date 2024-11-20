@@ -125,7 +125,7 @@ def get_car_comparison_service(car):
             brand = car.to_dict()["brand"]
             year  = car.to_dict()["year"]
 
-            score = db.collection("car_analysis").where("car", "==", model).get()
+            score = db.collection("car_analysis").where("carAndYear", "==", f"{model}_{year}").get()
 
             if not score:
                 scores.append({"model": model, "score": 0, "price": price, "brand": brand, "year": year})
@@ -172,6 +172,21 @@ def ai_chat_service(token, messages=None):
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
     
+def get_cars_without_reviews():
+    try:
+        cars = db.collection("cars").get()
+
+        cars_to_return = []
+        for car in cars:
+            car_analysis = db.collection("car_analysis").where("carAndYear", "==", f'{car.to_dict()["model"]}_{car.to_dict()["year"]}').get()
+
+            if not car_analysis:
+                cars_to_return.append(car.to_dict())
+
+        return cars_to_return
+    except Exception as e:
+        return {"error": f"An error occurred: {str(e)}"}
+
 def _get_openapi_key():
     secret = os.environ.get("openai-apikey")
     return secret

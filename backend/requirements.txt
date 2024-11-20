@@ -11,3 +11,5 @@ Werkzeug==3.0.3
 aiohttp
 asyncio
 google-auth
+schedule
+pylint

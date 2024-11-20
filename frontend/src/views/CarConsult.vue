@@ -146,7 +146,7 @@ export default {
     },
 
     methods: {
-        onFailure(response) {
+        onFailure() {
             this.notAuthenticated = true;
         },
 

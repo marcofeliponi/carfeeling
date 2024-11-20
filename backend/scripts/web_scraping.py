@@ -3,25 +3,27 @@ import asyncio
 from bs4 import BeautifulSoup
 from .analyzer.relevance_classifier import process_texts, classify_relevance
 from googlesearch import search
-from services.services import get_cars_service, save_car_analysis
+from services.services import get_cars_service, save_car_analysis, get_cars_without_reviews
 from time import sleep
 import random
+import time
+
 
 FAVORITES_SITES_TO_SCRAPE = [
-        'https://quatrorodas.abril.com.br',
-        'https://www.icarros.com.br',
-        'https://flatout.com.br',
-        'https://www.carrosnaweb.com.br',
-        'https://autoentusiastas.com.br'
-        'https://motor1.uol.com.br',
-    ]
+    'https://www.icarros.com.br',
+    'https://www.carrosnaweb.com.br',
+    'https://flatout.com.br',
+    'https://autoentusiastas.com.br'
+    'https://motor1.uol.com.br',
+    'https://quatrorodas.abril.com.br',
+]
 
 USER_AGENT_LIST = [    
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0',
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36 Edg/90.0.818.56',
     'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko'
-    ] 
+] 
 
 HEADERS = {
     'User-Agent': random.choice(USER_AGENT_LIST),
@@ -44,7 +46,7 @@ async def scrape_site(url):
             return [review.get_text() for review in reviews]
 
 async def run_scrape_process(query, num_results, car_keyword):
-    sites = search(query, num_results=num_results, lang='pt-br', sleep_interval=5.0, safe='on')
+    sites = search(query, num_results=num_results, lang='pt-br', sleep_interval=60.0, safe='on')
 
     data = []
     for site in sites:
@@ -79,7 +81,7 @@ def calculate_score(data):
     return normalized_score
 
 async def process_car_reviews(car, year=None):
-    print(f'Scraping car = {car} year = {year}')
+    print(f'Scraping car = {car} || year = {year}')
     cleaned_reviews = []
     relevant_reviews = {'scraped_sites': [], 'positives': [], 'negatives': [], 'neutral': []}
     car_keyword = car.split()[0]
@@ -112,6 +114,7 @@ async def process_car_reviews(car, year=None):
     if (len(relevant_reviews['positives']) > 0 or len(relevant_reviews['negatives']) > 0):
         score = calculate_score(relevant_reviews)
         save_car_analysis(car, relevant_reviews, score, year)
+        print(f'Dado salvo -> {car}')
         return {'car': car, 'score': score, 'year': year if year else 'not informed', **relevant_reviews}
     
 async def run(car=None, year=None):
@@ -125,7 +128,14 @@ async def run(car=None, year=None):
     for model in models:
         car = model['model']
         year = model['year']
+
+        start = time.perf_counter()
+
         data = await process_car_reviews(car, year)
+
+        end = time.perf_counter()
+        print(f'TEMPO -> {round(end-start, 2)} second(s)')
+
         response_to_api_calls.append(data)
 
     return response_to_api_calls
