@@ -25,7 +25,7 @@ Hoje, com o excesso de informação na internet, acaba sendo difícil encontrar 
 
   
 
-O Carfeeling almeja facilitar muito a escolha do carro, ao aplicar técnicas de web scraping e análise de sentimentos para fornecer informações objetivas e que ajudem os usuários. O chat com IA também surge como uma ideia para tirar dúvidas mais específicas, que podem não aparecer na análise inicial.  
+O Carfeeling almeja facilitar a escolha do carro, ao aplicar técnicas de web scraping e análise de sentimentos para fornecer informações objetivas e que ajudem os usuários. O chat com IA também surge como uma ideia para tirar dúvidas mais específicas, que podem não aparecer na análise inicial.  
 
   
 
@@ -41,7 +41,7 @@ O objetivo central do projeto é simplificar todo o processo de pesquisa de aval
 
   
 
-O projeto Carfeeling terá uma plataforma web dedicada à análise de sentimentos da comunidade nacional em torno de modelos de carro, contando também com o Chat com IA. Essa plataforma irá utilizar técnicas de web scraping para coletar feedbacks de especialistas e proprietários de veículos, consolidando essas informações em uma interface intuitiva para os usuários. Dessa forma, é possível fornecer uma ferramenta de fácil uso e com avaliações e opiniões relevantes sobre o mercado automotivo nacional, auxiliando na tomada de decisão de compra ou até mesmo aluguel de um automóvel.  
+O Carfeeling é uma plataforma web dedicada à análise de sentimentos da comunidade nacional em torno de modelos de carros, contando também com o Chat com IA. Essa plataforma utiliza técnicas de web scraping para coletar feedbacks de especialistas e proprietários de veículos, consolidando essas informações em uma interface intuitiva para os usuários. Dessa forma, é possível fornecer uma ferramenta de fácil uso e com avaliações e opiniões relevantes sobre o mercado automotivo nacional, auxiliando na tomada de decisão de compra ou até mesmo aluguel de um automóvel.  
 
   
 
@@ -49,7 +49,7 @@ Alguns problemas a resolver são: a grande variação de informações pela inte
 
   
 
-Como todo projeto, o Carfeeling terá suas limitações, algumas já previstas são:  
+Como todo projeto, o Carfeeling terá suas limitações, algumas encontradas são:  
 
   
 
@@ -75,7 +75,7 @@ Bloqueio de requisições de web scraping pelo Google caso a quantidade de consu
 
 Na parte de Inteligência Artificial o projeto usa modelos relevantes disponibilizados pela biblioteca Transformers Hugging Face, sendo eles 'facebook/bart-large-mnli' para classificação de relevância, e 'nlptown/bert-base-multilingual-uncased-sentiment' para a análise de sentimentos. Os procedimentos são coleta de dados com algoritmos de web scraping, análise através dos Modelos de IA, e armazennamento dos dados coletados são em um formato JSON, contendo informações relevantes sobre o modelo do carro, avaliações coletadas e resultado da análise de sentimento.  
 
-  
+O Carfeeling também conta com alguns serviços integrados: a Parallelum FIPE API para consultar valores FIPE atualizados dos carros consultados, a OpenAI API com o modelo 'gpt-3.5-turbo-0125' para um Chat com Inteligência Artificial, e a Google OAuth para autenticação na plataforma usando uma conta Google.
 
   
 
@@ -91,23 +91,20 @@ O sistema contará com uma interface limpa, a ideia é que qualquer usuário pos
 
   
 
-  
 
-A visão inicial da arquitetura consiste em um front-end desenvolvido em Vue com a responsabilidade de uma usabilidade simples para o usuário, que irá filtrar pelo seu automóvel de interesse, podendo incluir marca, modelo e ano. Assim que a consulta for realizada, a responsabilidade passa a ser do back-end, na linguagem Python, que irá receber parâmetros recebidos do front-end e buscar por uma Análise já disponível no Banco de Dados.  
+A visão inicial da arquitetura consiste em um front-end desenvolvido em Vue com a responsabilidade de uma usabilidade simples para o usuário, que irá filtrar pelo seu automóvel de interesse, podendo incluir marca, modelo e ano. Assim que a consulta for realizada, a responsabilidade passa a ser do back-end, na linguagem Python, que irá receber parâmetros do front-end e buscar por uma Análise já disponível no Banco de Dados.  
 
-O serviço de Scraping e Análise de Sentimentos ocorrerá por agendamento, em um horário de baixo pico, para que quando o usuário faça uma consulta os dados já estejam prontos e sem demandar de uma longa espera.  
+O serviço de Scraping e Análise de Sentimentos ocorre por agendamento, toda segunda-feira de madrugada, para que quando o usuário faça uma consulta os dados já estejam prontos sem demandar uma longa espera. Isso tendo em vista o processo de Análise é demorado e possuímos recursos limitados no ecossitema Google Cloud.  
 
-O serviço criado em Python irá buscar em websites conteúdos com base na coleção de veículos salva no Banco de Dados Firestore (NoSQL), os conteúdos encontrados no Scraping irão passar por validações e uso de dois modelos de I.A, o primeiro para manter apenas as partes relevantes do texto, e a segunda para analisar o sentimento. 
+O serviço criado em Python realiza buscas em websites estratégios, de conteúdos com base na coleção de veículos existente no Banco de Dados Firestore (NoSQL), os conteúdos encontrados no Scraping passam por validações e uso de dois modelos de I.A, o primeiro para manter apenas as partes relevantes do texto, e a segunda para analisar o sentimento. 
 
-Com a coleção de vários dados acontecerá a formatação, de forma que possa ser salvo no Banco de Dados. Desta forma, as análises estarão salvas para consultas no front-end. 
+Após a coleta de dados acontece a formatação, de forma que possa ser análisado pelos modelos de IA, já o texto original é salvo no Banco de Dados. Desta forma, as análises estarão prontas para consultas no front-end. 
 
-Já na parte do Chat, haverá uma tela específica para um bate-papo, que fará requisições para a API do OpenAI. Está API terá uma configuração para assuntos apenas relacionadas ao veículo passado, funcionando como um assistente do site.  
-
-Por conta do custo, o Chat terá uma camada de segurança usando a API Google Auth para solicitar login ao usuário. 
+Na parte do Chat, existe uma tela específica para um bate-papo, que realiza requisições para a API do OpenAI integrada ao back-end do Carfeeling. Está API possui uma configuração para conversar mantendo o contexto do veículo passado, funcionando como um assistente do site. Por conta do custo, o Chat terá uma camada de segurança usando a API Google Auth para solicitar login ao usuário. 
 
   
 
-O projeto estará arquitetado em monolito, visto que o back-end contará apenas com Python e é um MVP, mas que conforme fosse escalando poderia vir a ter microsserviços.  
+O projeto é monolítico, já que o back-end contará apenas com Python e é um MVP ainda pequeno, mas que conforme fosse escalando poderia vir a ter microsserviços.  
 
   
 
@@ -153,15 +150,15 @@ Por último, o código, que como citado anteriormente será desenvolvido em Vue.
 
   
 
-A ideia é que o projeto conte com uma Stack que favoreça o Web Scraping e o uso de I.A. Para isso, será usado Python em todo o back-end por seu grande desempenho neste contexto, e o Firestore NoSQL para um armazenamento dinâmico de diversos dados.  
+O projeto conta com uma Stack que favorece o Web Scraping e o uso de I.A. Para isso, é usado Python em todo o back-end por seu grande desempenho neste contexto, e o Firestore NoSQL para um armazenamento dinâmico de diversos dados em uma coleção JSON, que facilita lidar com textos grandes.  
 
   
 
-Já no front-end um framework prático e eficaz, o Vue.js, que faz um ótimo trabalho com sua reatividade.  
+No front-end um framework prático e eficaz, o Vue.js, que faz um ótimo trabalho com sua reatividade e possui boas bibliotecas de componentes.  
 
   
 
-Outras ferramentas utilizadas serão GIT e GitHub para versionamento de código, e ecossistema Google Cloud para hospedagem do projeto. Dentro do Google Cloud as ferramentas escolhidas são Cloud Run para execução do front-end e back-end, Firestore para Banco de Dados e Google OAuth para autenticação de usuário. 
+Outras ferramentas utilizadas são GIT e GitHub para versionamento de código, e ecossistema Google Cloud para hospedagem do projeto. Dentro do Google Cloud as ferramentas escolhidas são Cloud Run para execução do front-end e back-end, Firestore para Banco de Dados e Google OAuth para autenticação de usuário. 
 
   
 
@@ -185,15 +182,15 @@ A gestão das atividades será feita pelo modelo Kanban no software Trello.
 
   
 
-Uma das medidas necessárias será o cuidado ao realizar requisições para web scraping, para não ser identificado como um bot.   
+Uma das medidas necessárias é o cuidado ao realizar requisições web scraping, para não haver bloqueios. Para isso existem funções de intervalo entre as requisições e diferentes agentes de navegador sendo passados nos headers.
 
   
 
-Será ideal garantir que a Análise de Sentimento utilize um modelo que forneça bons resultados no contexto de veículos e opiniões.  
+Para garantir que a Análise de Sentimento utilize um modelo que forneça bons resultados no contexto de veículos e opiniões, o Carfeeling faz uso de dois bons modelos de IA amplamente conhecidos, disponibilizados pela Hugging Face: "nlptown/bert-base-multilingual-uncased-sentiment" e "facebook/bart-large-mnli". Ambos modelos tiveram um bom desempenho no contexto e não precisaram de fine tuning.
 
   
 
-Para evitar estresse do sistema, principalmente no uso do Chat integrado à OpenAI, será necessário sistema de Autenticação com o Google OAuth.  
+Para evitar estresse do sistema e custos exorbitantes no uso do Chat integrado à OpenAI, existe a Autenticação com o Google OAuth.
 
   
 
