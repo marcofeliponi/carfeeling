@@ -371,7 +371,7 @@ O sistema deve estar apto à escalabilidade vertical no ecossistema Google Cloud
 #### RNF7 - Disponibilidade:
 O sistema deve estar disponível em produção todos os dias da semana, 24 horas por dia.
 
-#### RNF9 - Tolerância a falhas:
+#### RNF8 - Tolerância a falhas:
 O sistema deve continuar funcionando mesmo que a API de terceiros (como a FIPE Parallelum) esteja indisponível, usando informações previamente armazenadas.
 
 
