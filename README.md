@@ -107,7 +107,7 @@ Por conta do custo, o Chat terá uma camada de segurança usando a API Google Au
 
   
 
-O projeto usará um modelo MVC, onde o Controller se comunicará com a View e posteriormente com o Model do back-end. Isso estará arquitetado em monolito, visto que o back-end contará apenas com Python e é um MVP, mas que conforme fosse escalando poderia vir a ter microsserviços.  
+O projeto estará arquitetado em monolito, visto que o back-end contará apenas com Python e é um MVP, mas que conforme fosse escalando poderia vir a ter microsserviços.  
 
   
 
