@@ -1,3 +1,7 @@
+"""
+This file is responsible for running the Flask application.
+"""
+
 import os
 from flask import Flask
 from flask_cors import CORS

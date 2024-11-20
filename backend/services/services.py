@@ -1,5 +1,8 @@
+"""
+This module contains the services that interact with the database and external APIs.
+"""
+
 import os
-import json
 from firebase_admin import firestore, initialize_app
 import requests
 from google.oauth2 import id_token
@@ -9,12 +12,13 @@ initialize_app()
 db = firestore.client()
 
 def get_cars_service():
+    """Get all cars from the database."""
     try:
         cars = db.collection("cars").get()
 
         if not cars:
             return {"error": "No cars found"}
-        
+
         data = {
             "cars": [car.to_dict() for car in cars]
         }
@@ -23,14 +27,15 @@ def get_cars_service():
 
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
-    
+
 def get_brands_service():
+    """Get all car brands from the database."""
     try:
         brands = db.collection("brands").get()
 
         if not brands:
             return {"error": "No brands found"}
-        
+
         data = {
             "brands": [brand.to_dict() for brand in brands]
         }
@@ -39,8 +44,9 @@ def get_brands_service():
 
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
-    
+
 def save_car_analysis(car, analysis, score, year):
+    """Save the car analysis in the database."""
     try:
         if year:
             car_analysis = db.collection("car_analysis").where("carAndYear", "==", f"{car}_{year}").get()
@@ -49,7 +55,7 @@ def save_car_analysis(car, analysis, score, year):
 
         for doc in car_analysis:
             doc.reference.delete()
-            
+
         car_analysis_data = {
             "score": score,
             "created_at": firestore.SERVER_TIMESTAMP,
@@ -60,14 +66,15 @@ def save_car_analysis(car, analysis, score, year):
             car_analysis_data["carAndYear"] = f"{car}_{year}"
         else:
             car_analysis_data["car"] = car
-        
+
         db.collection("car_analysis").add(car_analysis_data)
-        
+
         return {"message": f"Analysis saved successfully for {car} {year if year else ''}"}
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
-    
+
 def get_car_analysis_service(car, query_params):
+    """Get the analysis for a specific car."""
     try:
         car_analysis = []
 
@@ -88,7 +95,7 @@ def get_car_analysis_service(car, query_params):
                     .where('carAndYear', '>=', start_at) \
                     .where('carAndYear', '<=', end_at) \
                     .get()
-                
+
                 car_analysis = sorted(car_analysis, key=lambda x: x.to_dict()['created_at'], reverse=True)
 
         if not car_analysis:
@@ -97,26 +104,27 @@ def get_car_analysis_service(car, query_params):
         data = {
             "analysis": [analysis.to_dict() for analysis in car_analysis]
         }
-        
+
         return data
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
-    
-def get_car_comparison_service(car):
+
+def get_car_comparison_service(target_car):
+    """Get the comparison for a specific car."""
     try:
-        compared_car = db.collection("cars").where("model", "==", car).get()
+        compared_car = db.collection("cars").where("model", "==", target_car).get()
 
         if not compared_car:
-            return {"error": f"{car} not found"}
+            return {"error": f"{target_car} not found"}
 
         compared_car_price = compared_car[0].to_dict()["price"]
         lower_bound = compared_car_price - 10000
         upper_bound = compared_car_price + 10000
-        
+
         comparison_cars = db.collection("cars").where("price", ">", lower_bound).where("price", "<", upper_bound).limit(3).get()
-    
+
         if not comparison_cars:
-            return {"error": f"No cars found to compare with {car}"}
+            return {"error": f"No cars found to compare with {target_car}"}
 
         scores = []
         for car in comparison_cars:
@@ -135,13 +143,14 @@ def get_car_comparison_service(car):
         data = {
             "scores": scores
         }
-        
+
         return data
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
 
 def ai_chat_service(token, messages=None):
-    try:   
+    """Handle the AI chat requests."""
+    try:
         idinfo = id_token.verify_oauth2_token(token, google_requests.Request(), os.environ.get("google-client-id"))
 
         if not idinfo["sub"]:
@@ -165,14 +174,15 @@ def ai_chat_service(token, messages=None):
             "n": 1,
             "messages": messages
         }
-    
+
         response = requests.post("https://api.openai.com/v1/chat/completions", json=data, headers=headers)
-        
+
         return response.json()
     except Exception as e:
         return {"error": f"An error occurred: {str(e)}"}
-    
+
 def get_cars_without_reviews():
+    """Get all cars without reviews in the database."""
     try:
         cars = db.collection("cars").get()
 
@@ -188,5 +198,6 @@ def get_cars_without_reviews():
         return {"error": f"An error occurred: {str(e)}"}
 
 def _get_openapi_key():
+    """Get the OpenAI API key."""
     secret = os.environ.get("openai-apikey")
     return secret
