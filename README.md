@@ -116,33 +116,21 @@ O projeto é monolítico, já que o back-end contará apenas com Python e é um 
 
   
 
-No contexto deste projeto a arquitetura proposta consiste em um sistema que permite aos usuários filtrarem informações sobre automóveis de interesse, como ano e modelo, obter análises de sentimentos e conversar com uma I.A sobre o veículo desejado. 
-
-  
-
-  
+No contexto deste projeto a arquitetura proposta consiste em um sistema que permite aos usuários filtrarem informações sobre automóveis de interesse, como ano e modelo, obter análises de sentimentos e conversar com uma I.A sobre o veículo desejado.   
 
 Em relação aos contêineres, teremos o front-end em Vue.js: Responsável pela interface do usuário, oferecendo uma experiência simples e reativa. Este contêiner permite que os usuários filtrem informações sobre os automóveis desejados. No back-end em Python: Este contêiner é encarregado de processar consultas, realizar web scraping em sites para obter dados relevantes, e realizar análises de sentimentos sobre esses dados. Para salvar os registros usa-se o Firestore NoSQL: armazenar os dados obtidos pelo back-end, em forma de objetos nas coleções, facilitando a grande quantidade informações relacionadas e uso do front-end. 
 
-  
-
-  
-
-  
 
 Na parte de Componentes, teremos o Controller (Back-end): Responsável por receber requisições do front-end, processá-las e encaminhá-las para as funções apropriadas. View (Front-end): Apresenta a interface ao usuário, permitindo a interação com os filtros, exibindo os resultados das consultas e uma tela para bate-papo com a IA. Model (Back-end): Consiste nos serviços desenvolvidos em Python, realiza o web scraping, o processamento de dados relevantes, a análise de sentimentos dos dados obtidos e possibilita uma integração com a OpenAI para dúvidas à parte. 
 
   
-
-  
-
-  
-
 Por último, o código, que como citado anteriormente será desenvolvido em Vue.js no front-end, tendo em vista a facilidade de uso. No back-end o Python, por se destacar em eficiência e praticidade para o contexto do projeto que é Inteligência Artificial. Vale citar o uso do Firestore como database, e toda a hospedagem e Login com o ecossistema Google Cloud. Para a execução do projeto no Cloud Run da Google também se faz necessário o uso de Dockerfile para build. 
 
-  
+Diagrama de Caso de Uso:
 
-  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9cecb66d-62db-436d-9104-10200e8ffa2e" />
+</p>
 
   
 
@@ -155,7 +143,6 @@ O projeto conta com uma Stack que favorece o Web Scraping e o uso de I.A. Para i
   
 
 No front-end um framework prático e eficaz, o Vue.js, que faz um ótimo trabalho com sua reatividade e possui boas bibliotecas de componentes.  
-
   
 
 Outras ferramentas utilizadas são GIT e GitHub para versionamento de código, e ecossistema Google Cloud para hospedagem do projeto. Dentro do Google Cloud as ferramentas escolhidas são Cloud Run para execução do front-end e back-end, Firestore para Banco de Dados e Google OAuth para autenticação de usuário. 
