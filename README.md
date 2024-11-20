@@ -1,163 +1,380 @@
-## Introdução 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d6b8e9f3-4736-4a85-ae80-e516c58d5e31" />
+</p>
 
-Nos dias de hoje, os consumidores enfrentam um desafio grande ao buscar informações confiáveis sobre modelos específicos de carros, já que as opções são muitas. Com a grande quantidade de opiniões diferentes em redes sociais e fóruns, encontrar uma análise que seja confiável pode ser uma tarefa difícil. O projeto Car Feeling surge como uma solução para esse problema, oferecendo uma plataforma dedicada a analisar o sentimento em torno de diferentes modelos de carro, consolidando feedbacks de especialistas e proprietários em um único local de fácil acesso. 
+## Índice
 
-O Car Feeling pretende desempenhar um papel importante ao aplicar técnicas avançadas de web scraping e análise de sentimentos para fornecer informações valiosas aos usuários, a ideia é implicar bastante na vida do usuário tendo em vista que comprar um veículo é um custo muito alto na nossa situação socioeconômica. Ao simplificar esse processo de pesquisa e junção de feedbacks de carros, o Car Feeling contribui para a eficiência das decisões de compra ou aluguel de automóveis. 
+- [Introdução](#introducao)
+- [Descrição do Projeto](#descricao-do-projeto)
+- [Especificação Técnica](#especificacao-tecnica)
+- [Considerações de Design](#consideracoes-de-design)
+- [Modelo C4 (Contexto, Contêiner, Componente, Código):](#modelo-c4)
+- [Stack Tecnológica](#stack-tecnologica)
+- [Considerações de Segurança](#consideracoes-de-seguranca)
+- [Backlog do Projeto](#backlog-do-projeto)
+- [Requisitos de Software](#requisitos-de-software)
+- [Modelagem](#modelagem)
 
-O objetivo central do projeto Car Feeling é proporcionar aos usuários uma maneira fácil e eficaz de acessar avaliações e opiniões sobre os carros de seu interesse, e o melhor, de forma prática e rápida.  
+## Introdução <a id='introducao'></a>
 
- 
+  
 
-## Descrição do Projeto 
+Hoje, com o excesso de informação na internet, acaba sendo difícil encontrar avaliações sobre veículos que ajudem a tomar uma decisão de compra, pelo contrário, tantas opções acabam gerando ainda mais dúvida. O projeto Carfeeling surge com a ideia de ser uma ferramenta facilitadora para essa tarefa, oferecendo uma plataforma dedicada a análise com Inteligência Artificial em torno de diferentes modelos de carros nacionais, centralizando feedbacks de especialistas e proprietários comuns de diversos sites em um único local de fácil acesso. O site também disponibiliza um Chat integrado à OpenAI, proporcionando uma IA como uma assistente do usuário. 
 
-O projeto Car Feeling visa desenvolver uma plataforma online dedicada à análise do sentimento da comunidade em torno de modelos específicos de carro. Essa plataforma irá utilizar técnicas avançadas de web scraping para coletar feedbacks de especialistas e proprietários de veículos, consolidando essas informações em uma interface intuitiva e acessível aos usuários. A principal finalidade do projeto é fornecer aos consumidores uma fonte confiável e abrangente de avaliações e opiniões sobre os carros de seu interesse, auxiliando-os na tomada de decisões informadas sobre a compra ou aluguel de um automóvel. 
+  
 
-Alguns problemas a resolver são a falta de informações consolidadas para o consumidor, a tomada de decisão desinformada e precipitada e a indecisão acerca da grande variedade de veículos disponíveis no mercado no dia de hoje. 
+O Carfeeling almeja facilitar muito a escolha do carro, ao aplicar técnicas de web scraping e análise de sentimentos para fornecer informações objetivas e que ajudem os usuários. O chat com IA também surge como uma ideia para tirar dúvidas mais específicas, que podem não aparecer na análise inicial.  
 
-Como todo projeto, o Car Feeling terá suas limitações, algumas já previstas são: 
+  
 
-Disponibilidade de dados limitada, já que o projeto vai estar sujeito às limitações de disponibilidade e acessibilidade de dados online, onde nem todas as fontes de informação podem estar disponíveis para web scraping. 
+O objetivo central do projeto é simplificar todo o processo de pesquisa de avaliações e opiniões de carros nacionais, contribuindo para uma maneira mais fácil, prática e eficaz de acessar uma análise concisa e centralizadora. O chat com a Inteligência Artificial também é uma maneira de levar ao público mais leigo em tecnologia uma forma muito simples de utilizar o modelo do GPT para facilitar uma decisão neste contexto, visto que muitos desses usuários não tem o costume de acessar os serviços da OpenAI. 
 
-Análise limitada a modelos mais conhecidos no mercado, já que o projeto terá mais informações principalmente sobre modelos de carros populares e com grande quantidade de vendas, já que modelos não tão conhecidos terão bem menos dados de avaliações disponíveis para web scraping. 
+  
 
- 
+  
 
-## Especificação Técnica 
+  
 
-O projeto Car Feeling irá usar para análise de sentimento algoritmos baseados em Inteligência Artificial, com métodos capazes de filtrar dados relevantes. Os procedimentos incluirão a definição de uma estratégia de coleta de dados, a implementação de algoritmos de web scraping, o desenvolvimento da interface de usuário e testes de funcionalidade e desempenho. Os dados coletados serão armazenados em um formato JSON, contendo informações relevantes sobre o modelo do carro, avaliações coletadas e resultado da análise de sentimento. 
+## Descrição do Projeto <a id='descricao-do-projeto'></a>
 
- 
+  
 
-## Considerações de Design 
+O projeto Carfeeling terá uma plataforma web dedicada à análise de sentimentos da comunidade nacional em torno de modelos de carro, contando também com o Chat com IA. Essa plataforma irá utilizar técnicas de web scraping para coletar feedbacks de especialistas e proprietários de veículos, consolidando essas informações em uma interface intuitiva para os usuários. Dessa forma, é possível fornecer uma ferramenta de fácil uso e com avaliações e opiniões relevantes sobre o mercado automotivo nacional, auxiliando na tomada de decisão de compra ou até mesmo aluguel de um automóvel.  
 
-O projeto contará com uma interface limpa, a ideia é que qualquer usuário possa realizar suas consultas de forma prática. Já que este projeto exige em sua maior parte funcionalidades que não precisam de muita estilização e componentes front-end, esta parte será a menos complexa. 
+  
 
- 
+Alguns problemas a resolver são: a grande variação de informações pela internet, facilitar a tomada de decisão desinformada e precipitada, e a indecisão acerca da grande variedade de veículos disponíveis para compra atualmente.  
 
-A visão inicial da arquitetura consiste em um front-end com a responsabilidade de uma usabilidade simples para o usuário, que irá filtrar pelo seu automóvel de interesse, podendo incluir ano, modelo, entre outros detalhes. Assim que a consulta for realizada, a responsabilidade passa a ser do back-end, primeiramente na linguagem Golang, que irá receber parâmetros recebidos do front-end e começar a realizar o web scraping. O serviço criado em Golang irá buscar em diversos websites assuntos relacionados aos filtros e que possam ser entendidos pela máquina como sentimentos. 
-Com a coleção de vários dados acontecerá a formatação, de forma que possa ser passado para nosso outro serviço, criado em Python. Nessa parte do código o objetivo será realizar a análise de sentimentos dos dados, com o uso de Inteligência Artificial, podendo assim interpretar o que a maior parte do público sente a respeito do veículo. 
-Após todo esse processo, o resultado será indexado e salvo no Elastic Search, para serem usados novamente em buscas que sejam iguais em uma data não tão distante, visto que o sentimento pode mudar com o tempo, e depois de todo esse processo os resultados serão retornados ao front-end para visualização do usuário. 
+  
 
- 
+Como todo projeto, o Carfeeling terá suas limitações, algumas já previstas são:  
 
-Como a maioria das aplicações Web o projeto consistirá com um modelo MVC, onde o Controller se comunicará com a View e posteriormente com o Model do back-end. Também contará com uma arquitetura de microsserviços, visto que o back-end contará com a linguagem Golang e Python, tornando a divisão de ambas as linguagens mais limpas e concisas, separando as responsabilidades. 
+  
 
- 
+Disponibilidade de dados limitada, já que o projeto vai estar sujeito às limitações de disponibilidade e acessibilidade de dados online, onde nem todas as fontes de informação podem estar disponíveis para web scraping. Dessa forma, alguns sites mais conhecidos do mundo automotivo serão priorizados no processo de scraping. 
 
-## Modelo C4 (Contexto, Contêiner, Componente, Código):  
+  
 
-No contexto deste projeto a arquitetura proposta consiste em um sistema que permite aos usuários filtrarem informações sobre automóveis de interesse, como ano e modelo, e obter análises de sentimentos relacionadas a esses veículos. 
+Análise limitada a modelos mais conhecidos no mercado, já que o projeto terá mais informações principalmente sobre modelos de carros populares e com grande quantidade de vendas, tendo em vista que modelos não tão conhecidos terão bem menos dados de avaliações disponíveis para web scraping.  
 
- 
-Em relação aos contêineres, teremos o front-end em Vue.js: Responsável pela interface do usuário, oferecendo uma experiência simples e reativa. Este contêiner permite que os usuários filtrem informações sobre os automóveis desejados. No back-end em Golang e Python: Dividido em microsserviços, este contêiner é encarregado de processar consultas, realizar web scraping em diversos sites para obter dados relevantes, e realizar análises de sentimentos sobre esses dados. Utiliza Golang para a velocidade do web scraping e Python para a análise de sentimentos. E por último o Elasticsearch: Utilizado para indexar e armazenar os dados obtidos pelo back-end, garantindo rápida recuperação e acesso eficiente para consultas futuras. 
+  
 
- 
+Capacidade de processamento do modelo de inteligência artificial e armazenamento de grande quantidade de dados em um modelo MPV, que não possui investimentos de valores no ambiente de produção e usam muito recurso dos serviços Cloud. 
 
-Na parte de Componentes, teremos o Controller (Back-end): Responsável por receber requisições do front-end, processá-las e encaminhá-las para os microsserviços apropriados. View (Front-end): Apresenta a interface ao usuário, permitindo a interação com os filtros e exibindo os resultados das consultas. Model (Back-end): Consiste nos microsserviços desenvolvidos em Golang e Python. O serviço em Golang realiza o web scraping e o serviço em Python realiza a análise de sentimentos dos dados obtidos. 
+  
 
- 
+Bloqueio de requisições de web scraping pelo Google caso a quantidade de consultas seja grande em pouco tempo. 
 
-Por último, o código, que como citado anteriormente será desenvolvido em Vue.js no front-end, tendo em vista a facilidade de uso. No back-end o Golang e Python, por se destacarem em velocidade e eficiência para o contexto do projeto. Vale citar novamente o uso do Elasticsearch como database, deploys com Git Flow e hospedagem com Google Cloud. 
+  
 
- 
+## Especificação Técnica <a id='especificacao-tecnica'></a>
 
-## Stack Tecnológica 
+  
 
-A ideia é que o projeto conte com uma Stack que favoreça o Web Scrapping e a análise de sentimentos de uma forma otimizada e eficaz. Para isso, será usado Golang na realização do Web Scraping, já que é uma linguagem muito conhecida por sua velocidade, Python para a realização da análise de sentimentos dos dados encontrados, e o Elastic Search para indexação e armazenamento dos dados. 
+O projeto irá usar para a análise de sentimentos modelos de Inteligência Artificial relevantes e amplamente conhecidos, com métodos capazes de filtrar dados relevantes. Os procedimentos incluirão a definição de uma estratégia de coleta de dados, a implementação de algoritmos de web scraping, o desenvolvimento da interface visual e um chat integrado com a OpenAI. Os dados coletados serão armazenados em um formato JSON, contendo informações relevantes sobre o modelo do carro, avaliações coletadas e resultado da análise de sentimento.  
 
-Já no front-end busquei por um framework que tenho maior afinidade, o Vue.js, e que faz um ótimo trabalho com sua reatividade. 
+  
 
-Outras ferramentas utilizadas serão GIT e GitHub para versionamento de código, Git Flow para deploys, e Google Cloud para hospedagem do projeto. 
+  
 
-A gestão das atividades será feita pelo modelo Kanban no software Trello. 
+  
 
- 
+## Considerações de Design <a id='consideracoes-de-design'></a>
 
- 
+  
 
- 
+O sistema contará com uma interface limpa, a ideia é que qualquer usuário possa realizar suas consultas de forma prática. Como este projeto exige em sua maior parte funcionalidades que não precisam de muita estilização e componentes front-end, esta parte será a menos complexa.  
 
-## Considerações de Segurança 
+  
 
-Uma das medidas necessárias será o cuidado ao realizar requisições para web scraping, para não ser identificado como um bot, e para os dados coletados não gerarem problemas no nosso sistema com algum tipo de injeção.  
+  
 
-Será ideal garantir que a Análise de Sentimento não fique viciada ou sofra algum tipo de viés em seus resultados. 
+  
 
-Para evitar estresse do sistema ou possíveis ataques se fará necessário uma Limitação de Taxa, para que um único usuário não envie muitas solicitações em um curto período. Implementações de Captcha também podem ajudar nesse aspecto. 
+A visão inicial da arquitetura consiste em um front-end desenvolvido em Vue com a responsabilidade de uma usabilidade simples para o usuário, que irá filtrar pelo seu automóvel de interesse, podendo incluir marca, modelo e ano. Assim que a consulta for realizada, a responsabilidade passa a ser do back-end, na linguagem Python, que irá receber parâmetros recebidos do front-end e buscar por uma Análise já disponível no Banco de Dados.  
 
- 
+O serviço de Scraping e Análise de Sentimentos ocorrerá por agendamento, em um horário de baixo pico, para que quando o usuário faça uma consulta os dados já estejam prontos e sem demandar de uma longa espera.  
 
-## Backlog do Projeto 
+O serviço criado em Python irá buscar em websites conteúdos com base na coleção de veículos salva no Banco de Dados Firestore (NoSQL), os conteúdos encontrados no Scraping irão passar por validações e uso de dois modelos de I.A, o primeiro para manter apenas as partes relevantes do texto, e a segunda para analisar o sentimento. 
 
-Protótipo das Telas: Desenvolver protótipo no Figma das telas que compõem o sistema. 
+Com a coleção de vários dados acontecerá a formatação, de forma que possa ser salvo no Banco de Dados. Desta forma, as análises estarão salvas para consultas no front-end. 
 
- 
+Já na parte do Chat, haverá uma tela específica para um bate-papo, que fará requisições para a API do OpenAI. Está API terá uma configuração para assuntos apenas relacionadas ao veículo passado, funcionando como um assistente do site.  
 
-Estrutura inicial do projeto e versionamento: estrutura de pastas do projeto, pacotes e linguagens/framework utilizados, e versionamento de código ao GitHub. 
+Por conta do custo, o Chat terá uma camada de segurança usando a API Google Auth para solicitar login ao usuário. 
 
- 
+  
 
-Serviço para Web Scraping: Desenvolver serviço que será responsável por entrar nos sites definidos e buscar informações relevantes sobre os veículos.  
-Sites: Quatro Rodas, Carros na Web, iCarros, FlatOut, Na Pista, Auto Entuasiastas 
+O projeto usará um modelo MVC, onde o Controller se comunicará com a View e posteriormente com o Model do back-end. Isso estará arquitetado em monolito, visto que o back-end contará apenas com Python e é um MVP, mas que conforme fosse escalando poderia vir a ter microsserviços.  
 
- 
+  
 
-Serviço para Análise de Sentimentos: Desenvolver serviço back-end responsável por processar as informações conseguidas com Web Scraping. Esse serviço deverá rodar em Python e processar a informação de modo que seja possível salvar no Banco de Dados resultados já formatados para o posteriormente serem consultados. 
+  
 
- 
+  
 
-Design do Banco de Dados: Definir arquitetura da tabela no Elastic Search 
- 
+## Modelo C4 (Contexto, Contêiner, Componente, Código): <a id='modelo-c4'></a> 
 
-Conexão com Banco de Dados: Conectar e configurar a conexão do projeto ao Elastic Search. 
- 
+  
 
-Tela inicial para consultar análises: Desenvolver tela inicial do sistema, que possibilita realizar as consultas de análises. 
- 
+No contexto deste projeto a arquitetura proposta consiste em um sistema que permite aos usuários filtrarem informações sobre automóveis de interesse, como ano e modelo, obter análises de sentimentos e conversar com uma I.A sobre o veículo desejado. 
 
-Configuração de ambiente oficial: Configurar ambiente para hospedar o sistema. Principal opção é o Google Cloud. 
- 
+  
 
-Configuração de CI/CD: Integração contínua para atualizar o projeto no ambiente oficial. 
- 
+  
 
- API para consultar os veículos: Construir API que será usada para buscar as avaliações do veículo. 
-Deve aceitar tanto consultas gerais quanto as com filtros. 
-Será uma rota GET com path params recebendo o veículo, filtros opcionais devem ser definidos como query params. 
- 
+Em relação aos contêineres, teremos o front-end em Vue.js: Responsável pela interface do usuário, oferecendo uma experiência simples e reativa. Este contêiner permite que os usuários filtrem informações sobre os automóveis desejados. No back-end em Python: Este contêiner é encarregado de processar consultas, realizar web scraping em sites para obter dados relevantes, e realizar análises de sentimentos sobre esses dados. Para salvar os registros usa-se o Firestore NoSQL: armazenar os dados obtidos pelo back-end, em forma de objetos nas coleções, facilitando a grande quantidade informações relacionadas e uso do front-end. 
 
- Componente front-end de avaliações: Componente para mostrar a média de nota do veículo consultado. Possível usar componentes já disponibilizados por bibliotecas relevantes. 
- 
+  
 
- Automação de serviços do produto: Agendamento diário para realizar todo o processo que obtêm novas análises para o sistema. Ou seja, durante a madrugada de cada dia será executado o serviço para realizar web scraping, analisar os sentimentos, tratar as informações e indexar no banco de dados. Dessa forma sempre teremos dados prontos para serem buscados a cada consulta de um usuário. 
- 
+  
 
- Cobertura de Testes: Implementar testes de software no projeto. 
- 
+  
 
- API para feedbacks: Desenvolver rota que irá salvar opiniões do usuário sobre o site como um todo ou sobre o resultado da consulta. 
- 
+Na parte de Componentes, teremos o Controller (Back-end): Responsável por receber requisições do front-end, processá-las e encaminhá-las para as funções apropriadas. View (Front-end): Apresenta a interface ao usuário, permitindo a interação com os filtros, exibindo os resultados das consultas e uma tela para bate-papo com a IA. Model (Back-end): Consiste nos serviços desenvolvidos em Python, realiza o web scraping, o processamento de dados relevantes, a análise de sentimentos dos dados obtidos e possibilita uma integração com a OpenAI para dúvidas à parte. 
 
- Tela para feedbacks: Desenvolver tela para feedback do sistema. Essa tela deverá ser mostrada após o usuário realizar alguma consulta. 
+  
 
- 
+  
 
-## Requisitos de Software 
+  
 
-### Requisitos Funcionais: 
+Por último, o código, que como citado anteriormente será desenvolvido em Vue.js no front-end, tendo em vista a facilidade de uso. No back-end o Python, por se destacar em eficiência e praticidade para o contexto do projeto que é Inteligência Artificial. Vale citar o uso do Firestore como database, e toda a hospedagem e Login com o ecossistema Google Cloud. Para a execução do projeto no Cloud Run da Google também se faz necessário o uso de Dockerfile para build. 
 
-Consultar por automóveis de interesse, de forma filtrada ou não. 
+  
 
-Visualizar as fontes usadas para o resultado apresentado. 
+  
 
-Avaliar o resultado ou o site como um todo. 
+  
 
-### Requisitos Não Funcionais: 
+## Stack Tecnológica <a id='stack-tecnologica'></a>
 
-Garantir um uso intuitivo da aplicação. 
+  
 
-Assegurar velocidade na resposta das consultas, proporcionando desempenho. 
+A ideia é que o projeto conte com uma Stack que favoreça o Web Scraping e o uso de I.A. Para isso, será usado Python em todo o back-end por seu grande desempenho neste contexto, e o Firestore NoSQL para um armazenamento dinâmico de diversos dados.  
 
-Proporcionar análises precisas e dados relevantes. 
+  
 
-Manter informações atualizadas diariamente através de agendamentos. 
+Já no front-end um framework prático e eficaz, o Vue.js, que faz um ótimo trabalho com sua reatividade.  
+
+  
+
+Outras ferramentas utilizadas serão GIT e GitHub para versionamento de código, e ecossistema Google Cloud para hospedagem do projeto. Dentro do Google Cloud as ferramentas escolhidas são Cloud Run para execução do front-end e back-end, Firestore para Banco de Dados e Google OAuth para autenticação de usuário. 
+
+  
+
+A gestão das atividades será feita pelo modelo Kanban no software Trello.  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+## Considerações de Segurança <a id='consideracoes-de-seguranca'></a>
+
+  
+
+Uma das medidas necessárias será o cuidado ao realizar requisições para web scraping, para não ser identificado como um bot.   
+
+  
+
+Será ideal garantir que a Análise de Sentimento utilize um modelo que forneça bons resultados no contexto de veículos e opiniões.  
+
+  
+
+Para evitar estresse do sistema, principalmente no uso do Chat integrado à OpenAI, será necessário sistema de Autenticação com o Google OAuth.  
+
+  
+
+  
+
+  
+
+## Backlog do Projeto  
+
+  
+
+Protótipo das Telas: Desenvolver protótipo das telas que compõem o sistema.  
+
+  
+
+  
+
+  
+
+Estrutura inicial do projeto e versionamento: estrutura de pastas do projeto, pacotes e linguagens/framework utilizados, e versionamento de código ao GitHub.  
+
+  
+
+  
+
+  
+
+Serviço para Web Scraping: Desenvolver serviço que será responsável por entrar nos sites definidos e buscar informações relevantes sobre os veículos.   
+
+Sites: Quatro Rodas, Carros na Web, iCarros, FlatOut, Na Pista, Auto Entuasiastas  
+
+  
+
+  
+
+  
+
+Serviço para Análise de Sentimentos: Desenvolver serviço back-end responsável por processar as informações conseguidas com Web Scraping. Esse serviço deverá rodar em Python e processar a informação de modo que seja possível salvar no Banco de Dados resultados já formatados para o posteriormente serem consultados.  
+
+  
+
+  
+
+  
+
+Design do Banco de Dados: Definir coleções usadas no Firestore. 
+
+  
+
+  
+
+Conexão com Banco de Dados: Conectar e configurar a conexão do projeto ao Firestore.  
+
+  
+
+  
+
+Tela inicial para consultar análises: Desenvolver tela inicial do sistema, que possibilita realizar as consultas de análises.  
+
+  
+
+  
+
+Configuração de ambiente oficial: Configurar ambiente para hospedar o sistema. Principal opção é o Google Cloud.  
+
+  
+
+  
+
+Configuração de CI/CD: Integração contínua para atualizar o projeto no ambiente oficial.  
+
+  
+
+  
+
+API para consultar os veículos: Construir API que será usada para buscar as avaliações do veículo.  
+
+Deve aceitar tanto consultas gerais quanto as com filtros.  
+
+Será uma rota GET com path params recebendo o veículo, filtros opcionais devem ser definidos como query params.  
+
+  
+
+  
+
+Componente front-end de avaliações: Componente para mostrar a média de nota do veículo consultado. Possível usar componentes já disponibilizados por bibliotecas relevantes.  
+
+  
+
+  
+
+Automação de serviços do produto: Agendamento diário para realizar todo o processo que obtêm novas análises para o sistema. Ou seja, durante a madrugada de cada dia será executado o serviço para realizar web scraping, analisar os sentimentos, tratar as informações e indexar no banco de dados. Dessa forma sempre teremos dados prontos para serem buscados a cada consulta de um usuário.  
+
+  
+
+  
+
+  
+
+  
+
+Tela para chat com a Inteligência Artificial: Desenvolver tela para conversar com a assistente integrada via API da OpenAI, essa tela obrigatoriamente irá solicitar login através do Google. 
+
+  
+
+  
+
+  
+
+## Requisitos de Software  
+
+  
+
+### Requisitos Funcionais:  
+
+  
+
+#### RF1 - Consultar por automóveis de interesse, de forma filtrada ou não:
+O sistema deve permitir que os usuários realizem consultas de análises fornecendo parâmetros de marca, modelo e ano do veículo.
+
+
+  
+
+#### RF2 - Visualizar as fontes usadas para gerar a análise do veículo:
+O usuário poderá em cada consulta de veículo visualizar os sites que foram usados como fonte para web scraping e análise de inteligência artificial. Essas fontes podem variar de acordo com a análise.
+
+  
+
+#### RF3 - Visualizar pontos positivos e negativos do veículo durante a consulta:
+Em cada consulta a análise gerada disponibilizará ao usuário uma tela mostrandos pontos os positivos e negativos do veículo em questão, com informações vindas do web scraping.
+
+
+#### RF4 - Visualizar o valor de tabela FIPE do veículo:
+Cada consulta busca em tempo real o valor FIPE do veículo através de uma API integrada, o usuário deve visualizar essa informação em todas as consulta. Caso o valor não seja encontrado na API, será exibido um valor existente na base de dados.
+  
+
+#### RF5 - Comparar o veículo consultado com outros veículos de faixa de preço semelhante:
+Durante uma consulta o usuário deve ter a opção de visualizar como a nota geral do veículo consultado está em relação à outros 3 veículos com uma faixa de preço parecida.
+
+
+#### RF6 - Autenticação com integração do Google:
+O usuário tem a opção de se autenticar-se usando a API de Integração Google OAuth.
+
+
+#### RF7 - Chat com Assistente de Inteligência Artificial.
+Após autenticado, o usuário pode iniciar um chat com uma IA Assistente para tirar dúvidas sobre um veículo específico.
+
+
+
+### Requisitos Não Funcionais:  
+
+  
+
+#### RNF1 - Garantir um uso intuitivo da aplicação:
+O sistema deve ser fácil e prático, com interface intuitiva.
+
+  
+
+#### RNF2 - Assegurar velocidade na resposta das consultas, proporcionando alto desempenho:
+O sistema precisa ter respostas rápidas em todas as telas, desde às consultas de análises até o chat com IA.
+
+  
+
+#### RNF3 - Proporcionar análises precisas e dados relevantes:
+O sistema de scraping e análise de IA deve manter dados que façam sentido com o contexto da consulta, apenas com informações relevantes.
+
+
+#### RNF4 - Análises atualizadas semanalmente:
+O sistema deve realizar novos scrapings e análises de sentimentos toda segunda-feira, às 00:00h.
+
+#### RNF5 - Chat útil com Assistente de Inteligência Artificial:
+O chat disponiblizado no sistema deve ser adaptado ao contexto do site e proporcionar uma conversa relevante, esclarecendo dúvidas do usuário sobre o veículo escolhido.
+
+#### RNF6 - Escalabilidade:
+O sistema deve estar apto à escalabilidade vertical no ecossistema Google Cloud, no Firestore e também Cloud Run.
+
+#### RNF7 - Disponibilidade:
+O sistema deve estar disponível em produção todos os dias da semana, 24 horas por dia.
+
+#### RNF8 - Tolerância a falhas:
+O sistema deve continuar funcionando mesmo que a API de terceiros (como a FIPE Parallelum) esteja indisponível, usando informações previamente armazenadas.
+
+
+## Modelagem
+
+Para a organização de backlog e tarefas à serem desenvolvidas foi utilizada a ferramenta Trello.
