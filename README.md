@@ -8,10 +8,10 @@
 - [Descrição do Projeto](#descricao-do-projeto)
 - [Especificação Técnica](#especificacao-tecnica)
 - [Considerações de Design](#consideracoes-de-design)
-- [Modelo C4 (Contexto, Contêiner, Componente, Código):](#modelo-c4)
+- [Modelo C4 (Diagramas):](#modelo-c4)
 - [Stack Tecnológica](#stack-tecnologica)
 - [Considerações de Segurança](#consideracoes-de-seguranca)
-- [Backlog do Projeto](#backlog-do-projeto)
+- [Backlog Inicial do Projeto](#backlog-do-projeto)
 - [Requisitos de Software](#requisitos-de-software)
 - [Modelagem](#modelagem)
 - [Análise de Código](#analise-de-codigo)
@@ -132,7 +132,11 @@ Diagrama de Caso de Uso:
   <img src="https://github.com/user-attachments/assets/9cecb66d-62db-436d-9104-10200e8ffa2e" />
 </p>
 
-  
+Diagrama de Contêiner:
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/71e1aedf-1cff-46d0-82d4-34edf34d2d26" />
+</p>
 
 ## Stack Tecnológica <a id='stack-tecnologica'></a>
 
