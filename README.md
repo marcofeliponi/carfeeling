@@ -326,7 +326,7 @@ Durante uma consulta o usuário deve ter a opção de visualizar como a nota ger
 O usuário tem a opção de se autenticar-se usando a API de Integração Google OAuth.
 
 
-#### RF7 - Chat com Assistente de Inteligência Artificial.
+#### RF7 - Chat com Assistente de Inteligência Artificial:
 Após autenticado, o usuário pode iniciar um chat com uma IA Assistente para tirar dúvidas sobre um veículo específico.
 
 
