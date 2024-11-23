@@ -73,7 +73,7 @@ Bloqueio de requisições de web scraping pelo Google caso a quantidade de consu
 
   
 
-Na parte de Inteligência Artificial o projeto usa modelos relevantes disponibilizados pela biblioteca Transformers Hugging Face, sendo eles 'facebook/bart-large-mnli' para classificação de relevância, e 'nlptown/bert-base-multilingual-uncased-sentiment' para a análise de sentimentos. Os procedimentos são coleta de dados com algoritmos de web scraping, análise através dos Modelos de IA, e armazennamento dos dados coletados são em um formato JSON, contendo informações relevantes sobre o modelo do carro, avaliações coletadas e resultado da análise de sentimento.  
+Na parte de Inteligência Artificial o projeto usa modelos relevantes disponibilizados pela biblioteca Transformers Hugging Face, sendo eles 'facebook/bart-large-mnli' para classificação de relevância, e 'nlptown/bert-base-multilingual-uncased-sentiment' para a análise de sentimentos. O Web Scraping utiliza a biblioteca BeautifulSoup para raspagem de dados na web. Os procedimentos são coleta de dados com algoritmos de web scraping, análise através dos Modelos de IA, e armazennamento dos dados coletados são em um formato JSON, contendo informações relevantes sobre o modelo do carro, avaliações coletadas e resultado da análise de sentimento.  
 
 O Carfeeling também conta com alguns serviços integrados: a Parallelum FIPE API para consultar valores FIPE atualizados dos carros consultados, a OpenAI API com o modelo 'gpt-3.5-turbo-0125' para um Chat com Inteligência Artificial, e a Google OAuth para autenticação na plataforma usando uma conta Google.
 
