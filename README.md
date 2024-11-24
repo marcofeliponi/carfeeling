@@ -135,7 +135,7 @@ Diagrama de Caso de Uso:
 Diagrama de Contêiner:
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/71e1aedf-1cff-46d0-82d4-34edf34d2d26" />
+  <img src="https://github.com/user-attachments/assets/03e562da-cb0a-44fa-bf6f-e7e9480b0751" />
 </p>
 
 ## Stack Tecnológica <a id='stack-tecnologica'></a>
