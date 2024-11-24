@@ -393,3 +393,10 @@ Back-end:
 
 ![image](https://github.com/user-attachments/assets/7e89215f-051e-4343-9e38-edbea886ffc5)
 
+Integração OpenAI API:
+
+![image](https://github.com/user-attachments/assets/ab9a6471-4bae-4e70-9008-b7f51e11dbec)
+
+![image](https://github.com/user-attachments/assets/36a2ed72-68ef-4346-8bfd-05fc3b200b23)
+
+
