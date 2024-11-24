@@ -73,7 +73,7 @@ Bloqueio de requisições de web scraping pelo Google caso a quantidade de consu
 
   
 
-Na parte de Inteligência Artificial o projeto usa modelos relevantes disponibilizados pela biblioteca Transformers Hugging Face, sendo eles 'facebook/bart-large-mnli' para classificação de relevância, e 'nlptown/bert-base-multilingual-uncased-sentiment' para a análise de sentimentos. Os procedimentos são coleta de dados com algoritmos de web scraping, análise através dos Modelos de IA, e armazennamento dos dados coletados são em um formato JSON, contendo informações relevantes sobre o modelo do carro, avaliações coletadas e resultado da análise de sentimento.  
+Na parte de Inteligência Artificial o projeto usa modelos relevantes disponibilizados pela biblioteca Transformers Hugging Face, sendo eles 'facebook/bart-large-mnli' para classificação de relevância, e 'nlptown/bert-base-multilingual-uncased-sentiment' para a análise de sentimentos. O Web Scraping utiliza a biblioteca BeautifulSoup para raspagem de dados na web. Os procedimentos são coleta de dados com algoritmos de web scraping, análise através dos Modelos de IA, e armazennamento dos dados coletados são em um formato JSON, contendo informações relevantes sobre o modelo do carro, avaliações coletadas e resultado da análise de sentimento.  
 
 O Carfeeling também conta com alguns serviços integrados: a Parallelum FIPE API para consultar valores FIPE atualizados dos carros consultados, a OpenAI API com o modelo 'gpt-3.5-turbo-0125' para um Chat com Inteligência Artificial, e a Google OAuth para autenticação na plataforma usando uma conta Google.
 
@@ -135,7 +135,7 @@ Diagrama de Caso de Uso:
 Diagrama de Contêiner:
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/71e1aedf-1cff-46d0-82d4-34edf34d2d26" />
+  <img src="https://github.com/user-attachments/assets/03e562da-cb0a-44fa-bf6f-e7e9480b0751" />
 </p>
 
 ## Stack Tecnológica <a id='stack-tecnologica'></a>
@@ -326,7 +326,7 @@ Durante uma consulta o usuário deve ter a opção de visualizar como a nota ger
 O usuário tem a opção de se autenticar-se usando a API de Integração Google OAuth.
 
 
-#### RF7 - Chat com Assistente de Inteligência Artificial.
+#### RF7 - Chat com Assistente de Inteligência Artificial:
 Após autenticado, o usuário pode iniciar um chat com uma IA Assistente para tirar dúvidas sobre um veículo específico.
 
 
@@ -392,4 +392,11 @@ Front-end:
 Back-end:
 
 ![image](https://github.com/user-attachments/assets/7e89215f-051e-4343-9e38-edbea886ffc5)
+
+Integração OpenAI API:
+
+![image](https://github.com/user-attachments/assets/ab9a6471-4bae-4e70-9008-b7f51e11dbec)
+
+![image](https://github.com/user-attachments/assets/36a2ed72-68ef-4346-8bfd-05fc3b200b23)
+
 
