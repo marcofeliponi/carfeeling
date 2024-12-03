@@ -96,7 +96,7 @@ A visão inicial da arquitetura consiste em um front-end desenvolvido em Vue com
 
 O serviço de Scraping e Análise de Sentimentos ocorre por agendamento, toda segunda-feira de madrugada, para que quando o usuário faça uma consulta os dados já estejam prontos sem demandar uma longa espera. Isso tendo em vista o processo de Análise é demorado e possuímos recursos limitados no ecossitema Google Cloud.  
 
-O serviço criado em Python realiza buscas em websites estratégios, de conteúdos com base na coleção de veículos existente no Banco de Dados Firestore (NoSQL), os conteúdos encontrados no Scraping passam por validações e uso de dois modelos de I.A, o primeiro para manter apenas as partes relevantes do texto, e a segunda para analisar o sentimento. 
+O serviço criado em Python realiza buscas em websites estratégicos, de conteúdos com base na coleção de veículos existente no Banco de Dados Firestore (NoSQL), os conteúdos encontrados no Scraping passam por validações e uso de dois modelos de I.A, o primeiro para manter apenas as partes relevantes do texto, e a segunda para analisar o sentimento. 
 
 Após a coleta de dados acontece a formatação, de forma que possa ser análisado pelos modelos de IA, já o texto original é salvo no Banco de Dados. Desta forma, as análises estarão prontas para consultas no front-end. 
 
