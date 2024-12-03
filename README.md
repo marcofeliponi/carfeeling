@@ -201,7 +201,7 @@ Protótipo das Telas: Desenvolver protótipo das telas que compõem o sistema.
 
   
 
-Estrutura inicial do projeto e versionamento: estrutura de pastas do projeto, pacotes e linguagens/framework utilizados, e versionamento de código ao GitHub.  
+Estrutura inicial do projeto e versionamento: Estrutura de pastas do projeto, pacotes e linguagens/framework utilizados, e versionamento de código ao GitHub.  
 
   
 
@@ -211,7 +211,7 @@ Estrutura inicial do projeto e versionamento: estrutura de pastas do projeto, pa
 
 Serviço para Web Scraping: Desenvolver serviço que será responsável por entrar nos sites definidos e buscar informações relevantes sobre os veículos.   
 
-Sites: Quatro Rodas, Carros na Web, iCarros, FlatOut, Na Pista, Auto Entuasiastas  
+Sites: Quatro Rodas, Carros na Web, iCarros, FlatOut, Na Pista, Auto Entuasiastas.
 
   
 
@@ -311,11 +311,11 @@ O usuário poderá em cada consulta de veículo visualizar os sites que foram us
   
 
 #### RF3 - Visualizar pontos positivos e negativos do veículo durante a consulta:
-Em cada consulta a análise gerada disponibilizará ao usuário uma tela mostrandos pontos os positivos e negativos do veículo em questão, com informações vindas do web scraping.
+Em cada consulta a análise gerada disponibilizará ao usuário uma tela mostrando os pontos positivos e negativos do veículo em questão, com informações vindas do web scraping.
 
 
 #### RF4 - Visualizar o valor de tabela FIPE do veículo:
-Cada consulta busca em tempo real o valor FIPE do veículo através de uma API integrada, o usuário deve visualizar essa informação em todas as consulta. Caso o valor não seja encontrado na API, será exibido um valor existente na base de dados.
+Cada consulta busca em tempo real o valor FIPE do veículo através de uma API integrada, o usuário deve visualizar essa informação em todas as consultas. Caso o valor não seja encontrado na API, será exibido um valor existente na base de dados.
   
 
 #### RF5 - Comparar o veículo consultado com outros veículos de faixa de preço semelhante:
@@ -323,7 +323,7 @@ Durante uma consulta o usuário deve ter a opção de visualizar como a nota ger
 
 
 #### RF6 - Autenticação com integração do Google:
-O usuário tem a opção de se autenticar-se usando a API de Integração Google OAuth.
+O usuário tem a opção de se autenticar usando a API de Integração Google OAuth.
 
 
 #### RF7 - Chat com Assistente de Inteligência Artificial:
