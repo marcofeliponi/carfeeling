@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div>
-            <h1 class="title">Bem-vindo ao Car Feeling!</h1>
+            <h1 class="title">Bem-vindo ao Carfeeling!</h1>
             <h2 class="description">Simplificamos sua escolha automotiva.</h2>
             <h4 class="sub-description">
                 Utilizamos Inteligência Artificial e Web Scraping para analisar dados da internet, coletando opiniões de
