@@ -21,15 +21,11 @@
 
   
 
-Hoje, com o excesso de informação na internet, acaba sendo difícil encontrar avaliações sobre veículos que ajudem a tomar uma decisão de compra, pelo contrário, tantas opções acabam gerando ainda mais dúvida. O projeto Carfeeling surge com a ideia de ser uma ferramenta facilitadora para essa tarefa, oferecendo uma plataforma dedicada a análise com Inteligência Artificial em torno de diferentes modelos de carros nacionais, centralizando feedbacks de especialistas e proprietários comuns de diversos sites em um único local de fácil acesso. O site também disponibiliza um Chat integrado à OpenAI, proporcionando uma IA como uma assistente do usuário. 
+Hoje, com o excesso de informação na internet, acaba sendo difícil encontrar avaliações sobre veículos que ajudem a tomar uma decisão de compra, pelo contrário, tantas opções acabam gerando ainda mais dúvida. O projeto Carfeeling surge com a ideia de ser uma ferramenta facilitadora para essa tarefa, oferecendo uma plataforma dedicada a análise com Inteligência Artificial em torno de diferentes modelos de carros nacionais, centralizando feedbacks de especialistas e proprietários comuns de diversos sites em um único local de fácil acesso. O site também disponibiliza um Chat integrado à OpenAI, proporcionando uma IA como uma assistente do usuário.
 
   
 
-O Carfeeling almeja facilitar a escolha do carro, ao aplicar técnicas de web scraping e análise de sentimentos para fornecer informações objetivas e que ajudem os usuários. O chat com IA também surge como uma ideia para tirar dúvidas mais específicas, que podem não aparecer na análise inicial.  
-
-  
-
-O objetivo central do projeto é simplificar todo o processo de pesquisa de avaliações e opiniões de carros nacionais, contribuindo para uma maneira mais fácil, prática e eficaz de acessar uma análise concisa e centralizadora. O chat com a Inteligência Artificial também é uma maneira de levar ao público mais leigo em tecnologia uma forma muito simples de utilizar o modelo do GPT para facilitar uma decisão neste contexto, visto que muitos desses usuários não tem o costume de acessar os serviços da OpenAI. 
+O objetivo central do projeto é simplificar todo o processo de pesquisa de avaliações e opiniões de carros nacionais, contribuindo para uma maneira mais fácil e centralizadora. O chat com a Inteligência Artificial também é uma maneira de levar ao público mais leigo em tecnologia uma forma muito simples de utilizar o modelo do GPT para facilitar uma decisão neste contexto, visto que muitos desses usuários não tem o costume de acessar os serviços da OpenAI. 
 
   
 
