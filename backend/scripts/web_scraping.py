@@ -85,10 +85,16 @@ def calculate_score(data):
     num_positives = len(data['positives'])
     num_negatives = len(data['negatives'])
 
+    # Calculate the raw score based on reviews counts and their weights.
     score = (num_positives * positive_weight) + (num_negatives * negative_weight)
 
+    # Minimum and maximum possible raw scores.
     min_score, max_score = -10, 10
+
+    # Normalize the raw score to a range of 1 to 5.
     normalized_score = 1 + ((score - min_score) / (max_score - min_score)) * 4
+
+    # Ensure the normalized score stays within the bounds of 1 to 5.
     normalized_score = round(max(1, min(normalized_score, 5)), 2)
 
     return normalized_score
