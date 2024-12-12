@@ -331,33 +331,22 @@ Após autenticado, o usuário pode iniciar um chat com uma IA Assistente para ti
 
   
 
-#### RNF1 - Garantir um uso intuitivo da aplicação:
+#### RNF1 - Interface simples e prática:
 O sistema deve ser fácil e prático, com interface intuitiva.
 
-  
+#### RNF2 - Análises atualizadas semanalmente:
+O sistema deve realizar novos scrapings e análises toda segunda-feira.
 
-#### RNF2 - Assegurar velocidade na resposta das consultas, proporcionando alto desempenho:
-O sistema precisa ter respostas rápidas em todas as telas, desde às consultas de análises até o chat com IA.
-
-  
-
-#### RNF3 - Proporcionar análises precisas e dados relevantes:
-O sistema de scraping e análise de IA deve manter dados que façam sentido com o contexto da consulta, apenas com informações relevantes.
-
-
-#### RNF4 - Análises atualizadas semanalmente:
-O sistema deve realizar novos scrapings e análises de sentimentos toda segunda-feira, às 00:00h.
-
-#### RNF5 - Chat útil com Assistente de Inteligência Artificial:
+#### RNF3 - Chat funcional com Assistente de Inteligência Artificial:
 O chat disponiblizado no sistema deve ser adaptado ao contexto do site e proporcionar uma conversa relevante, esclarecendo dúvidas do usuário sobre o veículo escolhido.
 
-#### RNF6 - Escalabilidade:
+#### RNF4 - Escalabilidade de recursos conforme demanda:
 O sistema deve estar apto à escalabilidade vertical no ecossistema Google Cloud, no Firestore e também Cloud Run.
 
-#### RNF7 - Disponibilidade:
+#### RNF7 - Disponibilidade dos serviços:
 O sistema deve estar disponível em produção todos os dias da semana, 24 horas por dia.
 
-#### RNF8 - Tolerância a falhas:
+#### RNF8 - Tolerância a falhas de APIs externas:
 O sistema deve continuar funcionando mesmo que a API de terceiros (como a FIPE Parallelum) esteja indisponível, usando informações previamente armazenadas.
 
 
