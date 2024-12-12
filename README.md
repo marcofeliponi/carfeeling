@@ -343,10 +343,10 @@ O chat disponiblizado no sistema deve ser adaptado ao contexto do site e proporc
 #### RNF4 - Escalabilidade de recursos conforme demanda:
 O sistema deve estar apto à escalabilidade vertical no ecossistema Google Cloud, no Firestore e também Cloud Run.
 
-#### RNF7 - Disponibilidade dos serviços:
+#### RNF5 - Disponibilidade dos serviços:
 O sistema deve estar disponível em produção todos os dias da semana, 24 horas por dia.
 
-#### RNF8 - Tolerância a falhas de APIs externas:
+#### RNF6 - Tolerância a falhas de APIs externas:
 O sistema deve continuar funcionando mesmo que a API de terceiros (como a FIPE Parallelum) esteja indisponível, usando informações previamente armazenadas.
 
 
