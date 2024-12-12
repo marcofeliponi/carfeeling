@@ -269,7 +269,7 @@ Componente front-end de avaliações: Componente para mostrar a média de nota d
 
   
 
-Automação de serviços do produto: Agendamento diário para realizar todo o processo que obtêm novas análises para o sistema. Ou seja, durante a madrugada de cada dia será executado o serviço para realizar web scraping, analisar os sentimentos, tratar as informações e indexar no banco de dados. Dessa forma sempre teremos dados prontos para serem buscados a cada consulta de um usuário.  
+Automação de serviços do produto: Agendamento para realizar todo o processo que obtêm novas análises para o sistema. Ou seja, durante a madrugada de cada segunda-feira será executado o serviço para realizar web scraping, analisar os sentimentos, tratar as informações e indexar no banco de dados. Dessa forma sempre teremos dados prontos para serem buscados a cada consulta de um usuário.  
 
   
 
