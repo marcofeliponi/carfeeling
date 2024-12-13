@@ -185,7 +185,7 @@ export default {
 <style scoped lang="scss">
 .main {
     color: black;
-    margin-top: 130px;
+    margin-top: 80px;
 
     .title {
         margin-bottom: 40px;

@@ -96,7 +96,7 @@ export default {
 
 <style scoped lang="scss">
 .home {
-    margin-top: 70px;
+    margin-top: 50px;
     font-weight: bold;
     text-align: center;
 
