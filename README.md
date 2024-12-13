@@ -147,21 +147,34 @@ No front-end um framework prático e eficaz, o Vue.js, que faz um ótimo trabalh
 
 Outras ferramentas utilizadas são GIT e GitHub para versionamento de código, e ecossistema Google Cloud para hospedagem do projeto. Dentro do Google Cloud as ferramentas escolhidas são Cloud Run para execução do front-end e back-end, Firestore para Banco de Dados e Google OAuth para autenticação de usuário. 
 
-  
+Lista de principais ferramentas:
 
-A gestão das atividades será feita pelo modelo Kanban no software Trello.  
+Front-end:
+- Vue.js
+- Vite
+- Vue Router
 
-  
+Back-end:
+- Python
+- Flask
+- BeautifulSoup
+- GoogleSearch
+- Transformers
+- Schedule
 
-  
+Banco de Dados:
+- Firestore NoSQL
 
-  
+Hospedagem:
+- Google Cloud Run
 
-  
-
-  
-
-  
+Ferramentas:
+- Google OAuth
+- API Parallelum FIPE
+- OpenAI API Chat
+- GIT
+- GitHub
+- Dockerfile
 
   
 
@@ -170,11 +183,6 @@ A gestão das atividades será feita pelo modelo Kanban no software Trello.
   
 
 Uma das medidas necessárias é o cuidado ao realizar requisições web scraping, para não haver bloqueios. Para isso existem funções de intervalo entre as requisições e diferentes agentes de navegador sendo passados nos headers.
-
-  
-
-Para garantir que a Análise de Sentimento utilize um modelo que forneça bons resultados no contexto de veículos e opiniões, o Carfeeling faz uso de dois bons modelos de IA amplamente conhecidos, disponibilizados pela Hugging Face: "nlptown/bert-base-multilingual-uncased-sentiment" e "facebook/bart-large-mnli". Ambos modelos tiveram um bom desempenho no contexto e não precisaram de fine tuning.
-
   
 
 Para evitar estresse do sistema e custos exorbitantes no uso do Chat integrado à OpenAI, existe a Autenticação com o Google OAuth.
@@ -352,7 +360,22 @@ O sistema deve continuar funcionando mesmo que a API de terceiros (como a FIPE P
 
 ## Modelagem
 
-Para a organização de backlog e tarefas à serem desenvolvidas foi utilizada a ferramenta Trello.
+Coleções do Banco de Dados Firestore NoSQL:
+
+Cars:
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e961be79-fcdf-41a4-a2da-edd0377d42df" />
+</p>
+
+Brands:
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0395a0e5-397b-4946-b949-cb302d03923d" />
+</p>
+
+Car Analysis:
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e2197ae0-7db8-49c1-b808-e8b81b29676a" />
+</p>
 
 
 ## Análise de Código <a id='analise-de-codigo'></a>
