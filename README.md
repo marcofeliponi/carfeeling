@@ -401,6 +401,10 @@ Back-end:
 
 ![image](https://github.com/user-attachments/assets/7e89215f-051e-4343-9e38-edbea886ffc5)
 
+Deploys/builds:
+
+![image](https://github.com/user-attachments/assets/d6e13df0-0025-4014-aeba-13de5e5aa3b8)
+
 Integração OpenAI API:
 
 ![image](https://github.com/user-attachments/assets/ab9a6471-4bae-4e70-9008-b7f51e11dbec)
